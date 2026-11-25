@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBRACHEM | Lab Test Report Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #e2e8f0;
+      color: #0f172a;
+      padding: 24px 14px;
+      line-height: 1.45;
+    }
+
+    /* Top Control Bar (Hidden on PDF/Print) */
+    .toolbar {
+      max-width: 1120px;
+      margin: 0 auto 20px;
+      background: #090c10;
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .toolbar-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .toolbar-title span {
+      color: #5eead4;
+    }
+    .toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    button {
+      border: none;
+      border-radius: 6px;
+      padding: 9px 15px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s ease;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    .btn-pdf {
+      background-color: #46b5a6;
+      color: #090c10;
+    }
+    .btn-add {
+      background-color: #0284c7;
+      color: #ffffff;
+    }
+    .btn-reset {
+      background-color: #334155;
+      color: #ffffff;
+    }
+    .btn-del {
+      background-color: #dc2626;
+      color: #ffffff;
+      padding: 5px 10px;
+      font-size: 0.8rem;
+    }
+
+    /* Main Layout: Form Left, Live Report Right */
+    .workspace {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Form Panel */
+    .form-panel {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+    }
+    .form-panel h2 {
+      font-size: 1.1rem;
+      color: #090c10;
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #46b5a6;
+    }
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .field {
+      margin-bottom: 12px;
+    }
+    .field label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 4px;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: #0f172a;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: #0284c7;
+    }
+
+    .param-input-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 0.8fr 1fr auto;
+      gap: 6px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+    .param-input-row input,
+    .param-input-row select {
+      padding: 6px 8px;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      font-size: 0.82rem;
+    }
+
+    /* Printable Report Sheet */
+    .report-sheet {
+      background: #ffffff;
+      padding: 32px;
+      border-radius: 10px;
+      box-shadow: 0 6px 24px rgba(15, 23, 42, 0.1);
+      border-top: 6px solid #090c10;
+    }
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #090c10;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-badge {
+      width: 48px;
+      height: 48px;
+      background: #090c10;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+      border-radius: 4px;
+    }
+    .logo-badge .top-num {
+      font-size: 0.6rem;
+      color: #5eead4;
+      align-self: flex-start;
+      padding-left: 5px;
+    }
+    .logo-badge .sym {
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+    .org-name {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #090c10;
+      letter-spacing: 0.5px;
+    }
+    .org-sub {
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .report-title-box {
+      text-align: right;
+    }
+    .report-title-box h1 {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      color: #090c10;
+      letter-spacing: 0.5px;
+    }
+    .report-title-box p {
+      font-size: 0.82rem;
+      color: #475569;
+    }
+
+    .meta-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 18px;
+      font-size: 0.88rem;
+    }
+    .meta-table td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+    }
+    .meta-label {
+      background-color: #f8fafc;
+      font-weight: 700;
+      color: #1e293b;
+      width: 20%;
+    }
+    .meta-val {
+      color: #0f172a;
+      width: 30%;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 18px;
+      font-size: 0.88rem;
+    }
+    .results-table th {
+      background-color: #090c10;
+      color: #ffffff;
+      text-align: left;
+      padding: 8px 10px;
+      border: 1px solid #090c10;
+      font-weight: 600;
+    }
+    .results-table td {
+      border: 1px solid #cbd5e1;
+      padding: 7px 10px;
+    }
+    .status-pass {
+      color: #15803d;
+      font-weight: 700;
+    }
+    .status-fail {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+    .status-obs {
+      color: #0369a1;
+      font-weight: 700;
+    }
+
+    .remarks-box {
+      background-color: #f8fafc;
+      border-left: 4px solid #46b5a6;
+      padding: 10px 14px;
+      margin-bottom: 28px;
+      font-size: 0.88rem;
+    }
+    .remarks-box strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #090c10;
+    }
+
+    .sign-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 36px;
+      padding-top: 12px;
+      font-size: 0.85rem;
+    }
+    .sign-box {
+      width: 45%;
+      border-top: 1px solid #475569;
+      padding-top: 6px;
+      text-align: center;
+    }
+    .report-footer {
+      margin-top: 22px;
+      padding-top: 10px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.76rem;
+      color: #64748b;
+      text-align: center;
+    }
+
+    /* Clean PDF / Print Rules */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .toolbar,
+      .form-panel {
+        display: none !important;
+      }
+      .workspace {
+        display: block;
+        max-width: 100%;
+      }
+      .report-sheet {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 10px;
+        border-top: 4px solid #090c10;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div class="toolbar-title">IBRACHEM <span>Test Report &amp; PDF Builder</span></div>
+    <div class="toolbar-actions">
+      <button class="btn-add" type="button" onclick="addParameterRow()">+ Add Parameter</button>
+      <button class="btn-reset" type="button" onclick="resetForm()">Clear / New</button>
+      <button class="btn-pdf" type="button" onclick="window.print()">Download PDF</button>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <!-- Input Form -->
+    <div class="form-panel">
+      <h2>Report Details &amp; Test Data</h2>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="inReportNo">Report No.</label>
+          <input id="inReportNo" type="text" value="IBC-TR-2026-001" oninput="syncReport()" />
+        </div>
+        <div class="field">
+          <label for="inLabId">Lab ID No.</label>
+          <input id="inLabId" type="text" value="LAB-119-01" oninput="syncReport()" />
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="inDate">Test Date</label>
+          <input id="inDate" type="date" value="2026-11-25" oninput="syncReport()" />
+        </div>
+        <div class="field">
+          <label for="inSample">Sample Name / Source</label>
+          <input id="inSample" type="text" value="Chemical / Water Sample" oninput="syncReport()" />
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="inAppearance">Physical Appearance</label>
+          <input id="inAppearance" type="text" value="Clear / White Crystalline Powder" oninput="syncReport()" />
+        </div>
+        <div class="field">
+          <label for="inClient">Client / Department</label>
+          <input id="inClient" type="text" value="Quality &amp; Process Control" oninput="syncReport()" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Test Parameters</label>
+        <div id="paramInputs"></div>
+      </div>
+
+      <div class="field">
+        <label for="inRemarks">Remarks / Conclusion</label>
+        <textarea id="inRemarks" rows="3" oninput="syncReport()">Tested according to standard laboratory procedure. Values recorded as observed.</textarea>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label for="inAnalyst">Tested / Prepared By</label>
+          <input id="inAnalyst" type="text" value="Md. Ibrahim Hossain (Chemical Engineer)" oninput="syncReport()" />
+        </div>
+        <div class="field">
+          <label for="inVerifier">Reviewed / Approved By</label>
+          <input id="inVerifier" type="text" value="Authorized Lab / Plant Lead" oninput="syncReport()" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Report Preview (PDF Output) -->
+    <div class="report-sheet" id="reportSheet">
+      <div class="report-header">
+        <div class="brand-block">
+          <div class="logo-badge">
+            <span class="top-num">119</span>
+            <span class="sym">Ic</span>
+          </div>
+          <div>
+            <div class="org-name">IBRACHEM</div>
+            <div class="org-sub">Chemical Engineering &amp; Analytical Reference</div>
+          </div>
+        </div>
+        <div class="report-title-box">
+          <h1>Laboratory Test Report</h1>
+          <p>www.ibrachem.com | verify.ibrachem.com</p>
+        </div>
+      </div>
+
+      <table class="meta-table">
+        <tr>
+          <td class="meta-label">Report No.</td>
+          <td class="meta-val" id="outReportNo">IBC-TR-2026-001</td>
+          <td class="meta-label">Lab ID No.</td>
+          <td class="meta-val" id="outLabId">LAB-119-01</td>
+        </tr>
+        <tr>
+          <td class="meta-label">Test Date</td>
+          <td class="meta-val" id="outDate">2026-11-25</td>
+          <td class="meta-label">Sample</td>
+          <td class="meta-val" id="outSample">Chemical / Water Sample</td>
+        </tr>
+        <tr>
+          <td class="meta-label">Appearance</td>
+          <td class="meta-val" id="outAppearance">Clear / White Crystalline Powder</td>
+          <td class="meta-label">Department</td>
+          <td class="meta-val" id="outClient">Quality &amp; Process Control</td>
+        </tr>
+      </table>
+
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th style="width: 8%;">#</th>
+            <th style="width: 34%;">Parameter</th>
+            <th style="width: 20%;">Result</th>
+            <th style="width: 14%;">Unit</th>
+            <th style="width: 14%;">Spec / Ref</th>
+            <th style="width: 10%;">Status</th>
+          </tr>
+        </thead>
+        <tbody id="outParamsBody"></tbody>
+      </table>
+
+      <div class="remarks-box">
+        <strong>Remarks &amp; Observations</strong>
+        <span id="outRemarks">Tested according to standard laboratory procedure. Values recorded as observed.</span>
+      </div>
+
+      <div class="sign-row">
+        <div class="sign-box">
+          <div id="outAnalyst"><strong>Md. Ibrahim Hossain</strong><br />Chemical Engineer</div>
+        </div>
+        <div class="sign-box">
+          <div id="outVerifier"><strong>Authorized Lab / Plant Lead</strong><br />Reviewer</div>
+        </div>
+      </div>
+
+      <div class="report-footer">
+        Generated via IBRACHEM Report Tool • Verify records at https://verify.ibrachem.com
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const defaultParams = [
+      { name: "pH Value", result: "7.2", unit: "-", spec: "6.5 - 8.5", status: "Pass" },
+      { name: "Purity / Assay", result: "98.5", unit: "%", spec: ">= 98.0%", status: "Pass" },
+      { name: "Conductivity", result: "145", unit: "uS/cm", spec: "< 500", status: "Pass" }
+    ];
+
+    function initParameters(rows = defaultParams) {
+      const container = document.getElementById("paramInputs");
+      container.innerHTML = "";
+      rows.forEach((row) => addParameterRow(row));
+    }
+
+    function addParameterRow(data = { name: "", result: "", unit: "", spec: "", status: "Pass" }) {
+      const container = document.getElementById("paramInputs");
+      const div = document.createElement("div");
+      div.className = "param-input-row";
+      div.innerHTML = `
+        <input type="text" placeholder="Parameter" value="${escapeAttr(data.name)}" oninput="syncReport()" />
+        <input type="text" placeholder="Result" value="${escapeAttr(data.result)}" oninput="syncReport()" />
+        <input type="text" placeholder="Unit" value="${escapeAttr(data.unit)}" oninput="syncReport()" />
+        <input type="text" placeholder="Spec" value="${escapeAttr(data.spec)}" oninput="syncReport()" />
+        <select onchange="syncReport()">
+          <option value="Pass" ${data.status === "Pass" ? "selected" : ""}>Pass</option>
+          <option value="Fail" ${data.status === "Fail" ? "selected" : ""}>Fail</option>
+          <option value="Observed" ${data.status === "Observed" ? "selected" : ""}>Observed</option>
+        </select>
+        <button type="button" class="btn-del" onclick="this.parentElement.remove(); syncReport();">X</button>
+      `;
+      container.appendChild(div);
+      syncReport();
+    }
+
+    function escapeAttr(val) {
+      return String(val || "").replace(/"/g, "&quot;");
+    }
+
+    function syncReport() {
+      document.getElementById("outReportNo").textContent = document.getElementById("inReportNo").value || "-";
+      document.getElementById("outLabId").textContent = document.getElementById("inLabId").value || "-";
+      document.getElementById("outDate").textContent = document.getElementById("inDate").value || "-";
+      document.getElementById("outSample").textContent = document.getElementById("inSample").value || "-";
+      document.getElementById("outAppearance").textContent = document.getElementById("inAppearance").value || "-";
+      document.getElementById("outClient").textContent = document.getElementById("inClient").value || "-";
+      document.getElementById("outRemarks").textContent = document.getElementById("inRemarks").value || "-";
+
+      const analystVal = document.getElementById("inAnalyst").value || "Prepared By";
+      const verifierVal = document.getElementById("inVerifier").value || "Approved By";
+      document.getElementById("outAnalyst").innerHTML = `<strong>${escapeHtml(analystVal)}</strong>`;
+      document.getElementById("outVerifier").innerHTML = `<strong>${escapeHtml(verifierVal)}</strong>`;
+
+      const tbody = document.getElementById("outParamsBody");
+      tbody.innerHTML = "";
+      const rows = document.querySelectorAll("#paramInputs .param-input-row");
+
+      rows.forEach((row, index) => {
+        const inputs = row.querySelectorAll("input");
+        const select = row.querySelector("select");
+        const pName = inputs[0].value.trim();
+        const pRes = inputs[1].value.trim();
+        const pUnit = inputs[2].value.trim();
+        const pSpec = inputs[3].value.trim();
+        const pStatus = select.value;
+
+        if (!pName && !pRes && !pUnit && !pSpec) return;
+
+        let statusClass = "status-obs";
+        if (pStatus === "Pass") statusClass = "status-pass";
+        if (pStatus === "Fail") statusClass = "status-fail";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${escapeHtml(pName || "-")}</td>
+          <td><strong>${escapeHtml(pRes || "-")}</strong></td>
+          <td>${escapeHtml(pUnit || "-")}</td>
+          <td>${escapeHtml(pSpec || "-")}</td>
+          <td class="${statusClass}">${escapeHtml(pStatus)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function resetForm() {
+      document.getElementById("inReportNo").value = "";
+      document.getElementById("inLabId").value = "";
+      document.getElementById("inSample").value = "";
+      document.getElementById("inAppearance").value = "";
+      document.getElementById("inClient").value = "";
+      document.getElementById("inRemarks").value = "";
+      initParameters([{ name: "", result: "", unit: "", spec: "", status: "Pass" }]);
+    }
+
+    initParameters();
+  </script>
+</body>
+</html>
