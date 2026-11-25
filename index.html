@@ -143,7 +143,7 @@
       width: 210mm;
       min-height: 297mm;
       background: #ffffff;
-      padding: 16mm 18mm;
+      padding: 15mm 18mm;
       box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
       font-size: 12px;
       line-height: 1.45;
@@ -153,6 +153,7 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      gap: 16px;
       border-bottom: 1.5px solid #334155;
       padding-bottom: 10px;
       margin-bottom: 14px;
@@ -166,10 +167,20 @@
 
     .brand-box {
       text-align: right;
+      min-width: 190px;
+    }
+
+    .brand-logo {
+      max-height: 46px;
+      max-width: 170px;
+      object-fit: contain;
+      display: block;
+      margin-left: auto;
+      margin-bottom: 4px;
     }
 
     .brand-name {
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--blue);
       letter-spacing: 0.5px;
@@ -225,19 +236,36 @@
     }
 
     .sign-box {
-      margin-top: 24px;
+      margin-top: 20px;
       font-size: 11.5px;
     }
 
     .doc-footer {
-      margin-top: 28px;
+      margin-top: 22px;
       padding-top: 10px;
       border-top: 1px solid #cbd5e1;
       font-size: 10px;
       color: var(--muted);
       display: flex;
       justify-content: space-between;
-      gap: 12px;
+      align-items: flex-end;
+      gap: 14px;
+    }
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: right;
+    }
+
+    .qr-img {
+      width: 78px;
+      height: 78px;
+      border: 1px solid #cbd5e1;
+      padding: 2px;
+      background: #ffffff;
+      display: block;
     }
 
     .hl {
@@ -267,6 +295,8 @@
     @media print {
       body {
         background: #ffffff;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
       .topbar,
       .sidebar {
@@ -398,6 +428,12 @@
             </div>
           </div>
           <div class="brand-box">
+            <img
+              src="logo.png"
+              alt="Shodesh Chemical Industries Logo"
+              class="brand-logo"
+              onerror="this.style.display='none'"
+            />
             <div class="brand-name">SHODESH</div>
             <div class="brand-sub">CHEMICAL INDUSTRIES</div>
             <div class="brand-tag">(Importer, Indentor, Manufacturer &amp; Supplier of Textile Chemicals)</div>
@@ -494,9 +530,17 @@
             <strong>SHODESH GROUP</strong><br />
             Saima Vandar Market, 309, Sk. Mujib Road Chattogram, Bangladesh
           </div>
-          <div>
-            To verify this report, scan the QR code and match the specific sample and report reference details.<br />
-            Page 1 of 1
+          <div class="footer-right">
+            <div>
+              To verify this report, scan the QR code and match the specific sample and report reference details.<br />
+              https://verify.ibrachem.com<br />
+              Page 1 of 1
+            </div>
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fverify.ibrachem.com"
+              alt="QR Code for verify.ibrachem.com"
+              class="qr-img"
+            />
           </div>
         </footer>
       </article>
