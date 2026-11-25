@@ -1,98 +1,556 @@
-Ibrachem Report Builder — Laboratory Test Analysis
-Reset Defaults
-Print / Save PDF
-Yellow Fields Form
-Header & Lot Info
-Report Reference
-SSA-11-26-020
-Lab Id
-1020
-Batch
-1000Kg/NewJB+Stone
-B/L
-0000000000000
-LC
-0000000000000000
-Batch Values
-Form — Batch Value
-solid (powder)
-Physical appearance — Batch Value
-white crystalline
-Odor — Batch Value
-odorless
-pH — Batch Value
-10.7
-Hardness 8%(w/v) — Batch Value
-7.5
-Hardness 10%(w/v) — Batch Value
-9
-Solubility — Batch Value
-soluble
-Moisture content — Batch Value
-0.67
-Method Column
-Form — Method
-Visual
-Physical appearance — Method
-Visual
-Odor — Method
-Sensory
-pH — Method
-ASTM E70-24
-Hardness 8%(w/v) — Method
-Titration
-Hardness 10%(w/v) — Method
-Titration
-Solubility — Method
-Visual
-Moisture content — Method
-Moisture analyzer
-Compliance & Dates
-Compliance Status
-DOES NOT COMPLY
-Date of sample receipt (DD.MM.YYYY)
-22.11.2026
-Date of analysis (DD.MM.YYYY)
-22.11.2026
-Date of report release (DD.MM.YYYY)
-22.11.2026
-SHODESH
-CHEMICAL INDUSTRIES
-(Importer, Indentor, Manufacturer & Supplier of Textile Chemicals)
-Laboratory Test Analysis
-SSA-11-26-020
-Sodium Sulphate Anhydrous (Na2SO4)
-99% CAS. 7757-82-6, Ind. Grade, Co. Spec.
-Lab Id-1020
-Batch- 1000Kg/NewJB+Stone
-B/L 0000000000000 LC 0000000000000000
-Spec. Values		Batch Values		Method
-Form	solid (powder)		solid (powder)		Visual
-Physical appearance	white crystalline		white crystalline		Visual
-Odor	odorless		odorless		Sensory
-pH (accuracy ±0.2) 5% soln at 25°C	6.0 - 8.0		10.7		ASTM E70-24
-Hardness as CaCO3 (accuracy ±5) 8%(w/v)	<20	mgL-1	7.5	mgL-1	Titration
-Hardness as CaCO3 (accuracy ±5) 10%(w/v)	<20	mgL-1	9	mgL-1	Titration
-Solubility in 5% aqueous soln	soluble		soluble		Visual
-Moisture content	0.15 - 0.20	%	0.67	%	Moisture analyzer
-All tests were performed using freshly prepared distilled water. Applicable parameters were analyzed following recognized standard analytical methods as well as validated internal laboratory test procedures at ambient laboratory temperature (approx. 25 °C). All reagents and volumetric solutions used during analysis are properly standardized prior to use, and all analytical apparatus, balances, and measuring instruments are periodically calibrated and verified at scheduled intervals per internal laboratory protocols.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ibrachem Report Builder — Laboratory Test Analysis</title>
+  <style>
+    :root {
+      --navy: #163a5f;
+      --blue: #0070c0;
+      --border: #cbd5e1;
+      --bg-app: #eef2f6;
+      --text: #1e293b;
+      --muted: #64748b;
+      --highlight: #ffff00;
+    }
 
-Note: The reported values apply exclusively to the specific sample tested in the laboratory. Based on the observed analytical results above, the tested sample DOES NOT COMPLY with the required specification limits.
+    * {
+      box-sizing: border-box;
+    }
 
-Date of sample receipt (DD.MM.YYYY) 22.11.2026
-Date of analysis (DD.MM.YYYY) 22.11.2026
-Date of report release (DD.MM.YYYY) 22.11.2026
-Md. Ibrahim Hossain
-Responsible laboratory chemist
-This document has been produced electronically and is valid without a signature.
-Shodesh Chemical Industries
-174/4, Muradpur, Bandar, Narayanganj
-SHODESH GROUP
-Saima Vandar Market, 309, Sk. Mujib Road
-Chattogram, Bangladesh
-To verify this report,
-scan the QR code and match
-the specific sample and report
-reference details.
-Page 1 of 1
-```[cite: 21, 22, 23, 24] ---
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg-app);
+      color: var(--text);
+    }
+
+    .topbar {
+      background: var(--navy);
+      color: #ffffff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    button {
+      border: none;
+      border-radius: 5px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-reset {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-print {
+      background: #16a34a;
+      color: #ffffff;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .sidebar {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      max-height: calc(100vh - 95px);
+      overflow-y: auto;
+    }
+
+    .sidebar h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #15803d;
+      margin: 14px 0 8px;
+      text-transform: uppercase;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 7px 9px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .preview-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      background: #ffffff;
+      padding: 16mm 18mm;
+      box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1.5px solid #334155;
+      padding-bottom: 10px;
+      margin-bottom: 14px;
+    }
+
+    .doc-title {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #0f172a;
+    }
+
+    .brand-box {
+      text-align: right;
+    }
+
+    .brand-name {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--blue);
+      letter-spacing: 0.5px;
+    }
+
+    .brand-sub {
+      font-size: 10px;
+      font-weight: 700;
+      color: #334155;
+    }
+
+    .brand-tag {
+      font-size: 9.5px;
+      color: var(--muted);
+    }
+
+    .meta-line {
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 11.5px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid #cbd5e1;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    th {
+      background: #f8fafc;
+      font-weight: 700;
+    }
+
+    .notes p {
+      margin: 8px 0;
+      font-size: 11px;
+      color: #334155;
+    }
+
+    .dates-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 14px 0;
+      font-size: 11px;
+    }
+
+    .sign-box {
+      margin-top: 24px;
+      font-size: 11.5px;
+    }
+
+    .doc-footer {
+      margin-top: 28px;
+      padding-top: 10px;
+      border-top: 1px solid #cbd5e1;
+      font-size: 10px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .hl {
+      background: var(--highlight);
+      padding: 0 2px;
+    }
+
+    body.no-highlight .hl {
+      background: transparent;
+      padding: 0;
+    }
+
+    @media (max-width: 960px) {
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        max-height: none;
+      }
+      .sheet {
+        width: 100%;
+        min-height: auto;
+        padding: 16px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .topbar,
+      .sidebar {
+        display: none !important;
+      }
+      .workspace {
+        display: block;
+        padding: 0;
+      }
+      .sheet {
+        width: 100%;
+        min-height: auto;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Ibrachem Report Builder — Laboratory Test Analysis</h1>
+    <div class="actions">
+      <label class="toggle-label">
+        <input type="checkbox" id="highlightToggle" checked />
+        Highlight Yellow Fields
+      </label>
+      <button type="button" class="btn-reset" id="resetBtn">Reset Defaults</button>
+      <button type="button" class="btn-print" id="printBtn">Print / Save PDF</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar">
+      <h2>Yellow Fields Form</h2>
+
+      <div class="section-title">Header &amp; Lot Info</div>
+      <div class="field">
+        <label for="in_ref">Report Reference</label>
+        <input id="in_ref" type="text" value="SSA-11-26-020" />
+      </div>
+      <div class="field">
+        <label for="in_lab_id">Lab Id</label>
+        <input id="in_lab_id" type="text" value="1020" />
+      </div>
+      <div class="field">
+        <label for="in_batch">Batch</label>
+        <input id="in_batch" type="text" value="1000Kg/NewJB+Stone" />
+      </div>
+      <div class="field">
+        <label for="in_bl">B/L</label>
+        <input id="in_bl" type="text" value="000000000000" />
+      </div>
+      <div class="field">
+        <label for="in_lc">LC</label>
+        <input id="in_lc" type="text" value="0000000000000000" />
+      </div>
+
+      <div class="section-title">Batch Values</div>
+      <div class="field">
+        <label for="in_form">Form — Batch Value</label>
+        <input id="in_form" type="text" value="solid (powder)" />
+      </div>
+      <div class="field">
+        <label for="in_app">Physical appearance — Batch Value</label>
+        <input id="in_app" type="text" value="white crystalline" />
+      </div>
+      <div class="field">
+        <label for="in_odor">Odor — Batch Value</label>
+        <input id="in_odor" type="text" value="odorless" />
+      </div>
+      <div class="field">
+        <label for="in_ph">pH — Batch Value</label>
+        <input id="in_ph" type="text" value="10.7" />
+      </div>
+      <div class="field">
+        <label for="in_h8">Hardness 8%(w/v) — Batch Value</label>
+        <input id="in_h8" type="text" value="7.5" />
+      </div>
+      <div class="field">
+        <label for="in_h10">Hardness 10%(w/v) — Batch Value</label>
+        <input id="in_h10" type="text" value="9" />
+      </div>
+      <div class="field">
+        <label for="in_sol">Solubility — Batch Value</label>
+        <input id="in_sol" type="text" value="soluble" />
+      </div>
+      <div class="field">
+        <label for="in_moist">Moisture content — Batch Value</label>
+        <input id="in_moist" type="text" value="0.67" />
+      </div>
+
+      <div class="section-title">Compliance &amp; Dates</div>
+      <div class="field">
+        <label for="in_comply">Compliance Status</label>
+        <select id="in_comply">
+          <option value="DOES NOT COMPLY" selected>DOES NOT COMPLY</option>
+          <option value="COMPLIES">COMPLIES</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="in_d_receipt">Date of sample receipt (DD.MM.YYYY)</label>
+        <input id="in_d_receipt" type="text" value="22.11.2026" />
+      </div>
+      <div class="field">
+        <label for="in_d_analysis">Date of analysis (DD.MM.YYYY)</label>
+        <input id="in_d_analysis" type="text" value="22.11.2026" />
+      </div>
+      <div class="field">
+        <label for="in_d_release">Date of report release (DD.MM.YYYY)</label>
+        <input id="in_d_release" type="text" value="22.11.2026" />
+      </div>
+    </aside>
+
+    <section class="preview-wrap">
+      <article class="sheet" id="reportSheet">
+        <div class="doc-header">
+          <div>
+            <h2 class="doc-title">Laboratory Test Analysis</h2>
+            <div class="meta-line">
+              <span class="hl" id="out_ref">SSA-11-26-020</span>
+              <strong>Sodium Sulphate Anhydrous (Na<sub>2</sub>SO<sub>4</sub>)</strong>
+              99% CAS. 7757-82-6, Ind. Grade, Co. Spec.
+            </div>
+            <div class="meta-line">
+              Lab Id- <span class="hl" id="out_lab_id">1020</span>
+              Batch- <span class="hl" id="out_batch">1000Kg/NewJB+Stone</span>
+              B/L <span class="hl" id="out_bl">000000000000</span>
+              LC <span class="hl" id="out_lc">0000000000000000</span>
+            </div>
+          </div>
+          <div class="brand-box">
+            <div class="brand-name">SHODESH</div>
+            <div class="brand-sub">CHEMICAL INDUSTRIES</div>
+            <div class="brand-tag">(Importer, Indentor, Manufacturer &amp; Supplier of Textile Chemicals)</div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Spec. Values</th>
+              <th>Batch Values</th>
+              <th>Method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Form</td>
+              <td>solid (powder)</td>
+              <td><span class="hl" id="out_form">solid (powder)</span></td>
+              <td>Visual</td>
+            </tr>
+            <tr>
+              <td>Physical appearance</td>
+              <td>white crystalline</td>
+              <td><span class="hl" id="out_app">white crystalline</span></td>
+              <td>Visual</td>
+            </tr>
+            <tr>
+              <td>Odor</td>
+              <td>odorless</td>
+              <td><span class="hl" id="out_odor">odorless</span></td>
+              <td>Sensory</td>
+            </tr>
+            <tr>
+              <td>pH (accuracy &plusmn;0.2) 5% sol<sup>n</sup> at 25&deg;C</td>
+              <td>6.0 - 8.0</td>
+              <td><span class="hl" id="out_ph">10.7</span></td>
+              <td>ASTM E70-24</td>
+            </tr>
+            <tr>
+              <td>Hardness as CaCO<sub>3</sub> (accuracy &plusmn;5) 8%<sub>(w/v)</sub></td>
+              <td>&lt;20 mgL<sup>-1</sup></td>
+              <td><span class="hl" id="out_h8">7.5</span> mgL<sup>-1</sup></td>
+              <td>Titration</td>
+            </tr>
+            <tr>
+              <td>Hardness as CaCO<sub>3</sub> (accuracy &plusmn;5) 10%<sub>(w/v)</sub></td>
+              <td>&lt;20 mgL<sup>-1</sup></td>
+              <td><span class="hl" id="out_h10">9</span> mgL<sup>-1</sup></td>
+              <td>Titration</td>
+            </tr>
+            <tr>
+              <td>Solubility in 5% aqueous sol<sup>n</sup></td>
+              <td>soluble</td>
+              <td><span class="hl" id="out_sol">soluble</span></td>
+              <td>Visual</td>
+            </tr>
+            <tr>
+              <td>Moisture content</td>
+              <td>0.15 - 0.20 %</td>
+              <td><span class="hl" id="out_moist">0.67</span> %</td>
+              <td>Moisture analyzer</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="notes">
+          <p>
+            All tests were performed using freshly prepared distilled water. Applicable parameters were analyzed following recognized standard analytical methods as well as validated internal laboratory test procedures at ambient laboratory temperature (approx. 25 &deg;C). All reagents and volumetric solutions used during analysis are properly standardized prior to use, and all analytical apparatus, balances, and measuring instruments are periodically calibrated and verified at scheduled intervals per internal laboratory protocols.
+          </p>
+          <p>
+            Note: The reported values apply exclusively to the specific sample tested in the laboratory. Based on the observed analytical results above, the tested sample
+            <span class="hl" id="out_comply">DOES NOT COMPLY</span> with the required specification limits.
+          </p>
+        </div>
+
+        <div class="dates-row">
+          <div>Date of sample receipt (DD.MM.YYYY): <span class="hl" id="out_d_receipt">22.11.2026</span></div>
+          <div>Date of analysis (DD.MM.YYYY): <span class="hl" id="out_d_analysis">22.11.2026</span></div>
+          <div>Date of report release (DD.MM.YYYY): <span class="hl" id="out_d_release">22.11.2026</span></div>
+        </div>
+
+        <div class="sign-box">
+          <div><strong>Md. Ibrahim Hossain</strong></div>
+          <div>Responsible laboratory chemist</div>
+          <div>This document has been produced electronically and is valid without a signature.</div>
+        </div>
+
+        <footer class="doc-footer">
+          <div>
+            <strong>Shodesh Chemical Industries</strong><br />
+            174/4, Muradpur, Bandar, Narayanganj<br />
+            <strong>SHODESH GROUP</strong><br />
+            Saima Vandar Market, 309, Sk. Mujib Road Chattogram, Bangladesh
+          </div>
+          <div>
+            To verify this report, scan the QR code and match the specific sample and report reference details.<br />
+            Page 1 of 1
+          </div>
+        </footer>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const pairs = [
+      ["in_ref", "out_ref"],
+      ["in_lab_id", "out_lab_id"],
+      ["in_batch", "out_batch"],
+      ["in_bl", "out_bl"],
+      ["in_lc", "out_lc"],
+      ["in_form", "out_form"],
+      ["in_app", "out_app"],
+      ["in_odor", "out_odor"],
+      ["in_ph", "out_ph"],
+      ["in_h8", "out_h8"],
+      ["in_h10", "out_h10"],
+      ["in_sol", "out_sol"],
+      ["in_moist", "out_moist"],
+      ["in_comply", "out_comply"],
+      ["in_d_receipt", "out_d_receipt"],
+      ["in_d_analysis", "out_d_analysis"],
+      ["in_d_release", "out_d_release"]
+    ];
+
+    const defaults = {};
+    pairs.forEach(([inId, outId]) => {
+      const inp = document.getElementById(inId);
+      const out = document.getElementById(outId);
+      defaults[inId] = inp.value;
+      const sync = () => {
+        out.textContent = inp.value;
+      };
+      inp.addEventListener("input", sync);
+      inp.addEventListener("change", sync);
+    });
+
+    document.getElementById("highlightToggle").addEventListener("change", (e) => {
+      document.body.classList.toggle("no-highlight", !e.target.checked);
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      pairs.forEach(([inId, outId]) => {
+        const inp = document.getElementById(inId);
+        inp.value = defaults[inId];
+        document.getElementById(outId).textContent = defaults[inId];
+      });
+    });
+
+    document.getElementById("printBtn").addEventListener("click", () => {
+      window.print();
+    });
+  </script>
+</body>
+</html>
