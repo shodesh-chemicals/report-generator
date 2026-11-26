@@ -131,14 +131,9 @@
       font-family: Arial, Helvetica, sans-serif;
     }
 
-    /* Hide preview on screen without visibility:hidden so print renders cleanly */
+    /* Hidden on screen; shown cleanly when printing */
     .preview-wrap {
-      position: fixed;
-      left: -10000px;
-      top: 0;
-      width: 210mm;
-      opacity: 0;
-      pointer-events: none;
+      display: none;
     }
 
     .sheet {
@@ -438,25 +433,15 @@
         print-color-adjust: exact;
       }
       .topbar,
-      .sidebar,
       .workspace {
         display: none !important;
       }
-      .preview-wrap,
-      .preview-wrap * {
-        visibility: visible !important;
-        opacity: 1 !important;
-      }
       .preview-wrap {
-        position: static !important;
-        left: auto !important;
-        top: auto !important;
         display: block !important;
         width: 100% !important;
         max-width: 100% !important;
         padding: 0 !important;
         margin: 0 !important;
-        pointer-events: auto !important;
       }
       .sheet {
         width: 100% !important;
