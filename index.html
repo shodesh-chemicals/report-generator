@@ -336,12 +336,6 @@
       color: #000000;
     }
 
-    .electronic-dt {
-      margin-left: 14px;
-      font-size: 8.5pt;
-      color: #334155;
-    }
-
     .doc-footer {
       margin-top: 22px;
       padding-top: 10px;
@@ -408,7 +402,7 @@
 
     @page {
       size: A4 portrait;
-      margin: 10mm 12mm;
+      margin: 12mm 14mm;
     }
 
     @media print {
@@ -436,8 +430,14 @@
         box-shadow: none !important;
         padding: 0 !important;
       }
+      .chem-spec-row {
+        grid-template-columns: 134px 1fr !important;
+      }
       .chem-spec-text {
-        white-space: normal;
+        white-space: nowrap !important;
+      }
+      .lot-grid {
+        grid-template-columns: 134px 206px 166px 1fr !important;
       }
     }
   </style>
@@ -534,12 +534,6 @@
       <div class="field">
         <label for="in_d_release">Date of report release (DD.MM.YYYY)</label>
         <input id="in_d_release" type="text" value="22.11.2026" />
-      </div>
-
-      <div class="section-title">Document Date &amp; Time</div>
-      <div class="field">
-        <label for="in_print_dt">Specified Date &amp; Time</label>
-        <input id="in_print_dt" type="text" value="26.11.2026, 11:51 AM" />
       </div>
     </aside>
 
@@ -676,7 +670,6 @@
 
         <div class="electronic-note">
           This document has been produced electronically and is valid without a signature.
-          <span class="electronic-dt" id="out_print_dt">26.11.2026, 11:51 AM</span>
         </div>
 
         <footer class="doc-footer">
@@ -721,8 +714,7 @@
       ["in_comply", "out_comply"],
       ["in_d_receipt", "out_d_receipt"],
       ["in_d_analysis", "out_d_analysis"],
-      ["in_d_release", "out_d_release"],
-      ["in_print_dt", "out_print_dt"]
+      ["in_d_release", "out_d_release"]
     ];
 
     const defaults = {};
