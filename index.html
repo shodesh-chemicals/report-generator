@@ -176,19 +176,20 @@
 
     .chem-spec-line {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 10.5pt;
+      font-size: 10pt;
       font-weight: 400;
       line-height: 1.4;
       color: #000000;
       margin-bottom: 4px;
+      white-space: nowrap;
     }
 
-    /* Fixed-position columns so Batch length changes never shift B/L or LC */
+    /* Aligned so 'B' in 'Batch.' lines up directly under 'S' in 'Sodium' */
     .lot-grid {
       display: grid;
-      grid-template-columns: 112px 235px 172px 1fr;
+      grid-template-columns: 112px 218px 168px 1fr;
       align-items: baseline;
-      column-gap: 8px;
+      column-gap: 6px;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10pt;
       font-weight: 400;
@@ -198,8 +199,6 @@
 
     .lot-cell {
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     /* Word-style Calibri 10pt Table with compact line spacing */
@@ -381,6 +380,9 @@
         width: 100%;
         min-height: auto;
         padding: 16px;
+      }
+      .chem-spec-line {
+        white-space: normal;
       }
       .lot-grid {
         grid-template-columns: 1fr 1fr;
