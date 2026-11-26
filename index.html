@@ -201,12 +201,12 @@
     .top-logo-row {
       display: flex;
       justify-content: flex-end;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .brand-logo {
-      height: 68px;
-      max-width: 270px;
+      height: 82px;
+      max-width: 310px;
       object-fit: contain;
       display: block;
     }
@@ -216,7 +216,7 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 14pt;
       font-weight: 400;
-      line-height: 1.15;
+      line-height: 1.12;
       color: #000000;
     }
 
@@ -230,6 +230,7 @@
       margin: 0;
     }
 
+    /* Compact spacing between Laboratory Test Analysis, chemical line, batch line, and table */
     .chem-spec-row {
       display: grid;
       grid-template-columns: 134px 1fr;
@@ -237,9 +238,9 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10pt;
       font-weight: 400;
-      line-height: 1.25;
+      line-height: 1.15;
       color: #000000;
-      margin: 6px 0 0;
+      margin: 3px 0 0;
     }
 
     .chem-spec-text {
@@ -253,9 +254,9 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10pt;
       font-weight: 400;
-      line-height: 1.25;
+      line-height: 1.15;
       color: #000000;
-      margin: 6px 0 6px;
+      margin: 3px 0 3px;
     }
 
     .lot-cell {
@@ -265,7 +266,7 @@
     table.analysis-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 22px 0 12px;
+      margin: 14px 0 12px;
       font-family: Calibri, "Segoe UI", Arial, sans-serif;
       font-size: 10pt;
       font-weight: 400;
@@ -733,14 +734,14 @@
       sodium_sulphate: {
         specLine: "Sodium Sulphate Anhydrous (Na2SO4) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.",
         rows: [
-          { param: "Form", spec: "solid (powder)", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Physical Appearance", spec: "white crystalline", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Odor", spec: "odorless", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
+          { param: "Form", spec: "solid (powder)", specUnit: "", batch: "", batchUnit: "", method: "visual" },
+          { param: "Physical Appearance", spec: "white crystalline", specUnit: "", batch: "", batchUnit: "", method: "visual" },
+          { param: "Odor", spec: "odorless", specUnit: "", batch: "", batchUnit: "", method: "sensory" },
           { param: "pH (accuracy ±0.2) 5% soln at 25°C", spec: "6.0 - 8.0", specUnit: "", batch: "", batchUnit: "", method: "ASTM E70-24" },
-          { param: "Hardness as CaCO3 (accuracy ±5) 8%(w/v)", spec: "<20", specUnit: "mgL-1", batch: "", batchUnit: "mgL-1", method: "Titration" },
-          { param: "Hardness as CaCO3 (accuracy ±5) 10%(w/v)", spec: "<20", specUnit: "mgL-1", batch: "", batchUnit: "mgL-1", method: "Titration" },
-          { param: "Solubility in 5% aqueous soln", spec: "soluble", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Moisture content", spec: "0.15 - 0.20", specUnit: "%", batch: "", batchUnit: "%", method: "Moisture analyzer" }
+          { param: "Hardness as CaCO3 (accuracy ±5) 8%(w/v)", spec: "<20", specUnit: "mgL-1", batch: "", batchUnit: "mgL-1", method: "titration" },
+          { param: "Hardness as CaCO3 (accuracy ±5) 10%(w/v)", spec: "<20", specUnit: "mgL-1", batch: "", batchUnit: "mgL-1", method: "titration" },
+          { param: "Solubility in 5% aqueous soln", spec: "soluble", specUnit: "", batch: "", batchUnit: "", method: "visual" },
+          { param: "Moisture content", spec: "0.15 - 0.20", specUnit: "%", batch: "", batchUnit: "%", method: "moisture analyzer" }
         ]
       },
       soda_ash_light: {
@@ -801,6 +802,14 @@
         .replace(/\(w\/v\)/g, "<sub>(w/v)</sub>");
     }
 
+    function formatMethodHtml(text) {
+      const raw = String(text || "");
+      const token = "__ASTM_E70_24__";
+      const replaced = raw.replace(/ASTM E70-24/gi, token).toLowerCase();
+      const restored = replaced.replace(new RegExp(token.toLowerCase(), "g"), "ASTM E70-24");
+      return formatInlineChemHtml(restored);
+    }
+
     function renderPreviewTable() {
       const tbody = document.getElementById("out_table_body");
       tbody.innerHTML = "";
@@ -813,7 +822,7 @@
           <td>${formatInlineChemHtml(row.specUnit)}</td>
           <td><span class="hl hl-wide">${formatInlineChemHtml(row.batch)}</span></td>
           <td>${formatInlineChemHtml(row.batchUnit)}</td>
-          <td>${formatInlineChemHtml(row.method)}</td>
+          <td>${formatMethodHtml(row.method)}</td>
         `;
         tbody.appendChild(tr);
       });
