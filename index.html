@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ibrachem Report Builder — Laboratory Test Analysis</title>
+  <title>Electronically Produced Document</title>
   <style>
     :root {
       --navy: #163a5f;
@@ -141,9 +141,19 @@
       width: 210mm;
       min-height: 297mm;
       background: #ffffff;
-      padding: 14mm 16mm 14mm 20mm;
+      padding: 12mm 16mm 14mm 20mm;
       box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
       color: #000000;
+    }
+
+    .print-meta-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8pt;
+      color: #475569;
+      margin-bottom: 4px;
     }
 
     .top-logo-row {
@@ -400,9 +410,15 @@
       }
     }
 
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm;
+    }
+
     @media print {
       body {
         background: #ffffff;
+        margin: 0;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
@@ -410,22 +426,29 @@
       .sidebar {
         display: none !important;
       }
-      .workspace {
+      .workspace,
+      .preview-wrap {
         display: block;
+        width: 100%;
+        max-width: 100%;
         padding: 0;
+        margin: 0;
       }
       .sheet {
-        width: 100%;
-        min-height: auto;
-        box-shadow: none;
-        padding: 0;
+        width: 100% !important;
+        min-height: auto !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      .chem-spec-text {
+        white-space: normal;
       }
     }
   </style>
 </head>
 <body>
   <header class="topbar">
-    <h1>Ibrachem Report Builder — Laboratory Test Analysis</h1>
+    <h1>Electronically Produced Document — Lab Test Analysis</h1>
     <div class="actions">
       <label class="toggle-label">
         <input type="checkbox" id="highlightToggle" checked />
@@ -516,10 +539,21 @@
         <label for="in_d_release">Date of report release (DD.MM.YYYY)</label>
         <input id="in_d_release" type="text" value="22.11.2026" />
       </div>
+
+      <div class="section-title">Print Stamp (Date &amp; Time)</div>
+      <div class="field">
+        <label for="in_print_dt">Specified Date &amp; Time</label>
+        <input id="in_print_dt" type="text" value="26.11.2026, 11:51 AM" />
+      </div>
     </aside>
 
     <section class="preview-wrap">
       <article class="sheet" id="reportSheet">
+        <div class="print-meta-strip">
+          <span>Electronically Produced Document</span>
+          <span id="out_print_dt">26.11.2026, 11:51 AM</span>
+        </div>
+
         <div class="top-logo-row">
           <img
             src="./logo.png"
@@ -695,7 +729,8 @@
       ["in_comply", "out_comply"],
       ["in_d_receipt", "out_d_receipt"],
       ["in_d_analysis", "out_d_analysis"],
-      ["in_d_release", "out_d_release"]
+      ["in_d_release", "out_d_release"],
+      ["in_print_dt", "out_print_dt"]
     ];
 
     const defaults = {};
