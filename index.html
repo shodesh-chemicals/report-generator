@@ -338,11 +338,31 @@
       color: #000000;
     }
 
-    /* Footer: Arial 8pt, 3 parts, top-left aligned, anchored near bottom of page */
-    .doc-footer {
+    /* Bottom area: QR right-aligned directly above address/footer, anchored near bottom */
+    .bottom-area {
       margin-top: auto;
-      padding-top: 18px;
       padding-bottom: 0.2in;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .qr-right-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 6px;
+    }
+
+    .qr-img {
+      width: 72px;
+      height: 72px;
+      border: 1px solid #94a3b8;
+      padding: 2px;
+      background: #ffffff;
+      display: block;
+    }
+
+    /* Footer: Arial 8pt, 3 parts */
+    .doc-footer {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 8pt;
       font-weight: 400;
@@ -350,14 +370,15 @@
       color: #000000;
       display: grid;
       grid-template-columns: 1.35fr 1fr 0.7fr;
-      align-items: start;
-      text-align: left;
+      align-items: stretch;
       gap: 12px;
+      min-height: 54px;
     }
 
-    .footer-col-1,
-    .footer-col-2,
-    .footer-col-3 {
+    /* Part 1: Top Left */
+    .footer-col-1 {
+      align-self: start;
+      justify-self: start;
       text-align: left;
     }
 
@@ -365,30 +386,21 @@
       margin: 0;
     }
 
+    /* Part 2: Center Left */
     .footer-col-2 {
+      align-self: center;
+      justify-self: start;
+      text-align: left;
       line-height: 1.3;
     }
 
+    /* Part 3: Bottom Right */
     .footer-col-3 {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .qr-img {
-      width: 68px;
-      height: 68px;
-      border: 1px solid #94a3b8;
-      padding: 2px;
-      background: #ffffff;
-      display: block;
-    }
-
-    .footer-page {
-      margin-top: 5px;
+      align-self: end;
+      justify-self: end;
+      text-align: right;
       font-size: 8pt;
       line-height: 1.25;
-      text-align: left;
     }
 
     .hl {
@@ -431,10 +443,19 @@
         grid-template-columns: 1fr 1fr;
         row-gap: 4px;
       }
-      .doc-footer {
-        grid-template-columns: 1fr;
+      .bottom-area {
         margin-top: 28px;
         padding-bottom: 12px;
+      }
+      .doc-footer {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .footer-col-2,
+      .footer-col-3 {
+        align-self: start;
+        justify-self: start;
+        text-align: left;
       }
     }
 
@@ -479,9 +500,11 @@
       .lot-grid {
         grid-template-columns: 134px 206px 166px 1fr !important;
       }
-      .doc-footer {
+      .bottom-area {
         margin-top: auto !important;
         padding-bottom: 0.2in !important;
+      }
+      .doc-footer {
         grid-template-columns: 1.35fr 1fr 0.7fr !important;
       }
     }
@@ -718,26 +741,29 @@
           This document has been produced electronically and is valid without a signature.
         </div>
 
-        <footer class="doc-footer">
-          <div class="footer-col-1">
-            <div>Shodesh Chemical Industries</div>
-            <div>174/4, Muradpur, Bandar, Narayanganj</div>
-            <div>SHODESH GROUP</div>
-            <div>Saima Vandar Market, 309, Sk. Mujib Road</div>
-            <div>Chattogram, Bangladesh</div>
-          </div>
-          <div class="footer-col-2">
-            To verify this report, scan the QR code and match the specific sample and report reference details.
-          </div>
-          <div class="footer-col-3">
+        <div class="bottom-area">
+          <div class="qr-right-row">
             <img
               src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fverify.ibrachem.com"
               alt="QR Code for verify.ibrachem.com"
               class="qr-img"
             />
-            <div class="footer-page">Page 1 of 1</div>
           </div>
-        </footer>
+
+          <footer class="doc-footer">
+            <div class="footer-col-1">
+              <div>Shodesh Chemical Industries</div>
+              <div>174/4, Muradpur, Bandar, Narayanganj</div>
+              <div>SHODESH GROUP</div>
+              <div>Saima Vandar Market, 309, Sk. Mujib Road</div>
+              <div>Chattogram, Bangladesh</div>
+            </div>
+            <div class="footer-col-2">
+              To verify this report, scan the QR code and match the specific sample and report reference details.
+            </div>
+            <div class="footer-col-3">Page 1 of 1</div>
+          </footer>
+        </div>
       </article>
     </section>
   </main>
