@@ -174,22 +174,28 @@
       margin: 8px 0 10px;
     }
 
-    .chem-spec-line {
+    /* Aligned so 'Sodium' starts right after Report No, and 'Batch.' starts directly under 'Sodium' */
+    .chem-spec-row {
+      display: grid;
+      grid-template-columns: 134px 1fr;
+      align-items: baseline;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10pt;
       font-weight: 400;
       line-height: 1.4;
       color: #000000;
       margin-bottom: 4px;
+    }
+
+    .chem-spec-text {
       white-space: nowrap;
     }
 
-    /* Aligned so 'B' in 'Batch.' lines up directly under 'S' in 'Sodium' */
+    /* Fixed-position columns so Batch length changes never shift B/L or LC */
     .lot-grid {
       display: grid;
-      grid-template-columns: 112px 218px 168px 1fr;
+      grid-template-columns: 134px 206px 166px 1fr;
       align-items: baseline;
-      column-gap: 6px;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10pt;
       font-weight: 400;
@@ -381,7 +387,11 @@
         min-height: auto;
         padding: 16px;
       }
-      .chem-spec-line {
+      .chem-spec-row {
+        grid-template-columns: 1fr;
+        row-gap: 4px;
+      }
+      .chem-spec-text {
         white-space: normal;
       }
       .lot-grid {
@@ -521,9 +531,11 @@
         <h2 class="doc-title">Laboratory Test Analysis</h2>
         <hr class="section-rule" />
 
-        <div class="chem-spec-line">
-          <span class="hl" id="out_ref">SSA-11-26-020</span>
-          &nbsp;Sodium Sulphate Anhydrous (Na<sub>2</sub>SO<sub>4</sub>) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.
+        <div class="chem-spec-row">
+          <div><span class="hl" id="out_ref">SSA-11-26-020</span></div>
+          <div class="chem-spec-text">
+            Sodium Sulphate Anhydrous (Na<sub>2</sub>SO<sub>4</sub>) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.
+          </div>
         </div>
 
         <div class="lot-grid">
