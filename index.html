@@ -141,19 +141,9 @@
       width: 210mm;
       min-height: 297mm;
       background: #ffffff;
-      padding: 12mm 16mm 14mm 20mm;
+      padding: 14mm 16mm 14mm 20mm;
       box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
       color: #000000;
-    }
-
-    .print-meta-strip {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 8pt;
-      color: #475569;
-      margin-bottom: 4px;
     }
 
     .top-logo-row {
@@ -346,6 +336,12 @@
       color: #000000;
     }
 
+    .electronic-dt {
+      margin-left: 14px;
+      font-size: 8.5pt;
+      color: #334155;
+    }
+
     .doc-footer {
       margin-top: 22px;
       padding-top: 10px;
@@ -448,7 +444,7 @@
 </head>
 <body>
   <header class="topbar">
-    <h1>Electronically Produced Document — Lab Test Analysis</h1>
+    <h1>Ibrachem Report Builder — Laboratory Test Analysis</h1>
     <div class="actions">
       <label class="toggle-label">
         <input type="checkbox" id="highlightToggle" checked />
@@ -540,7 +536,7 @@
         <input id="in_d_release" type="text" value="22.11.2026" />
       </div>
 
-      <div class="section-title">Print Stamp (Date &amp; Time)</div>
+      <div class="section-title">Document Date &amp; Time</div>
       <div class="field">
         <label for="in_print_dt">Specified Date &amp; Time</label>
         <input id="in_print_dt" type="text" value="26.11.2026, 11:51 AM" />
@@ -549,11 +545,6 @@
 
     <section class="preview-wrap">
       <article class="sheet" id="reportSheet">
-        <div class="print-meta-strip">
-          <span>Electronically Produced Document</span>
-          <span id="out_print_dt">26.11.2026, 11:51 AM</span>
-        </div>
-
         <div class="top-logo-row">
           <img
             src="./logo.png"
@@ -685,6 +676,7 @@
 
         <div class="electronic-note">
           This document has been produced electronically and is valid without a signature.
+          <span class="electronic-dt" id="out_print_dt">26.11.2026, 11:51 AM</span>
         </div>
 
         <footer class="doc-footer">
