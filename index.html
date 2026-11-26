@@ -729,7 +729,7 @@
         specLine: "Sodium Sulphate Anhydrous (Na2SO4) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.",
         rows: [
           { param: "Form", spec: "solid (powder)", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Physical appearance", spec: "white crystalline", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Physical Appearance", spec: "white crystalline", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
           { param: "Odor", spec: "odorless", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
           { param: "pH (accuracy ±0.2) 5% soln at 25°C", spec: "6.0 - 8.0", specUnit: "", batch: "", batchUnit: "", method: "ASTM E70-24" },
           { param: "Hardness as CaCO3 (accuracy ±5) 8%(w/v)", spec: "<20", specUnit: "mgL-1", batch: "", batchUnit: "mgL-1", method: "Titration" },
@@ -741,32 +741,22 @@
       soda_ash_light: {
         specLine: "Soda Ash Light (Na2CO3) CAS. 497-19-8, Ind. Grade, Co. Spec.",
         rows: [
-          { param: "Form", spec: "solid (powder)", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Physical appearance", spec: "white granular powder", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Odor", spec: "odorless", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
-          { param: "Purity as Na2CO3", spec: "", specUnit: "%", batch: "", batchUnit: "%", method: "Titration" },
-          { param: "Moisture content", spec: "", specUnit: "%", batch: "", batchUnit: "%", method: "Moisture analyzer" }
+          { param: "Form", spec: "solid (Powder)", specUnit: "", batch: "", batchUnit: "", method: "" },
+          { param: "Physical Appearance", spec: "white crystalline", specUnit: "", batch: "", batchUnit: "", method: "" },
+          { param: "Odor", spec: "odorless", specUnit: "", batch: "", batchUnit: "", method: "" },
+          { param: "pH (accuracy ±0.2) 1% soln at 25°C", spec: "11.5-12.0", specUnit: "", batch: "", batchUnit: "", method: "" },
+          { param: "Total Alkalinity", spec: "±99.2", specUnit: "%", batch: "", batchUnit: "%", method: "" },
+          { param: "Bulk Density", spec: "0.50-0.65", specUnit: "gmL-1", batch: "", batchUnit: "gmL-1", method: "" },
+          { param: "Solubility in 10%(w/v)", spec: "soluble", specUnit: "", batch: "", batchUnit: "", method: "" }
         ]
       },
       acetic_acid: {
         specLine: "Acetic Acid (C2H4O2) CAS. 64-19-7, Ind. Grade, Co. Spec.",
-        rows: [
-          { param: "Form", spec: "liquid", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Physical appearance", spec: "clear colorless liquid", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Odor", spec: "pungent vinegar-like", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
-          { param: "Purity as CH3COOH", spec: "", specUnit: "%", batch: "", batchUnit: "%", method: "Titration" },
-          { param: "Specific gravity at 25°C", spec: "", specUnit: "", batch: "", batchUnit: "", method: "Hydrometer" }
-        ]
+        rows: []
       },
       formic_acid: {
         specLine: "Formic Acid (CH2O2) CAS. 64-18-6, Ind. Grade, Co. Spec.",
-        rows: [
-          { param: "Form", spec: "liquid", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Physical appearance", spec: "clear colorless liquid", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
-          { param: "Odor", spec: "pungent", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
-          { param: "Purity as HCOOH", spec: "", specUnit: "%", batch: "", batchUnit: "%", method: "Titration" },
-          { param: "Specific gravity at 25°C", spec: "", specUnit: "", batch: "", batchUnit: "", method: "Hydrometer" }
-        ]
+        rows: []
       }
     };
 
@@ -800,6 +790,7 @@
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/CaCO3/g, "CaCO<sub>3</sub>")
+        .replace(/gmL-1/g, "gmL<sup>-1</sup>")
         .replace(/mgL-1/g, "mgL<sup>-1</sup>")
         .replace(/soln/g, "sol<sup>n</sup>")
         .replace(/\(w\/v\)/g, "<sub>(w/v)</sub>");
