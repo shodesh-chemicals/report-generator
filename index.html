@@ -176,30 +176,37 @@
 
     .chem-spec-line {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 11pt;
+      font-size: 10.5pt;
       font-weight: 400;
       line-height: 1.4;
       color: #000000;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
     }
 
-    .meta-list {
+    /* Fixed-position columns so Batch length changes never shift B/L or LC */
+    .lot-grid {
+      display: grid;
+      grid-template-columns: 112px 235px 172px 1fr;
+      align-items: baseline;
+      column-gap: 8px;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10pt;
       font-weight: 400;
-      line-height: 1.45;
+      line-height: 1.4;
       color: #000000;
     }
 
-    .meta-list div {
-      margin: 0;
+    .lot-cell {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    /* Word-style Calibri 10pt Table without bottom border */
+    /* Word-style Calibri 10pt Table with compact line spacing */
     table.analysis-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 16px 0 14px;
+      margin: 14px 0 12px;
       font-family: Calibri, "Segoe UI", Arial, sans-serif;
       font-size: 10pt;
       font-weight: 400;
@@ -210,10 +217,10 @@
     table.analysis-table th,
     table.analysis-table td {
       border: none;
-      padding: 2.5px 4px;
+      padding: 1px 4px;
       text-align: left;
       vertical-align: baseline;
-      line-height: 1.3;
+      line-height: 1.12;
     }
 
     table.analysis-table thead tr {
@@ -223,15 +230,16 @@
     table.analysis-table th {
       background: transparent;
       font-weight: 700;
-      padding-bottom: 4px;
+      padding-bottom: 3px;
+      line-height: 1.15;
     }
 
     table.analysis-table tbody tr:first-child td {
-      padding-top: 5px;
+      padding-top: 4px;
     }
 
     table.analysis-table tbody tr:last-child td {
-      padding-bottom: 6px;
+      padding-bottom: 4px;
     }
 
     .col-param {
@@ -262,20 +270,20 @@
     .notes {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9pt;
-      line-height: 1.4;
+      line-height: 1.38;
       color: #000000;
     }
 
     .notes p {
-      margin: 10px 0;
+      margin: 9px 0;
       text-align: left;
     }
 
     .dates-block {
-      margin: 22px 0 18px;
+      margin: 20px 0 16px;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9pt;
-      line-height: 1.45;
+      line-height: 1.42;
       color: #000000;
     }
 
@@ -285,7 +293,7 @@
 
     /* Signature block */
     .sign-block {
-      margin-top: 28px;
+      margin-top: 26px;
       display: flex;
       justify-content: flex-end;
     }
@@ -315,7 +323,7 @@
     }
 
     .electronic-note {
-      margin-top: 22px;
+      margin-top: 20px;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9pt;
       font-weight: 400;
@@ -324,7 +332,7 @@
     }
 
     .doc-footer {
-      margin-top: 24px;
+      margin-top: 22px;
       padding-top: 10px;
       border-top: 1px solid #cbd5e1;
       font-family: Arial, Helvetica, sans-serif;
@@ -374,6 +382,10 @@
         min-height: auto;
         padding: 16px;
       }
+      .lot-grid {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 4px;
+      }
     }
 
     @media print {
@@ -422,7 +434,7 @@
         <input id="in_ref" type="text" value="SSA-11-26-020" />
       </div>
       <div class="field">
-        <label for="in_lab_id">Lab Id</label>
+        <label for="in_lab_id">Lab ID</label>
         <input id="in_lab_id" type="text" value="1020" />
       </div>
       <div class="field">
@@ -508,15 +520,15 @@
         <hr class="section-rule" />
 
         <div class="chem-spec-line">
-          Sodium Sulphate Anhydrous (Na<sub>2</sub>SO<sub>4</sub>) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.
+          <span class="hl" id="out_ref">SSA-11-26-020</span>
+          &nbsp;Sodium Sulphate Anhydrous (Na<sub>2</sub>SO<sub>4</sub>) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.
         </div>
 
-        <div class="meta-list">
-          <div>Report No: <span class="hl" id="out_ref">SSA-11-26-020</span></div>
-          <div>Lab Id:<span class="hl" id="out_lab_id">1020</span></div>
-          <div>Batch: <span class="hl" id="out_batch">1000Kg/NewJB+Stone</span></div>
-          <div>B/L: <span class="hl" id="out_bl">000000000000</span></div>
-          <div>LC: <span class="hl" id="out_lc">0000000000000000</span></div>
+        <div class="lot-grid">
+          <div class="lot-cell">Lab ID. <span class="hl" id="out_lab_id">1020</span></div>
+          <div class="lot-cell">Batch. <span class="hl" id="out_batch">1000Kg/NewJB+Stone</span>,</div>
+          <div class="lot-cell">B/L. <span class="hl" id="out_bl">000000000000</span>,</div>
+          <div class="lot-cell">LC. <span class="hl" id="out_lc">0000000000000000</span></div>
         </div>
 
         <hr class="section-rule" />
