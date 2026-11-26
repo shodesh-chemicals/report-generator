@@ -67,12 +67,20 @@
       color: #ffffff;
     }
 
+    .btn-add {
+      width: 100%;
+      background: #163a5f;
+      color: #ffffff;
+      padding: 8px 12px;
+      margin-top: 6px;
+    }
+
     .workspace {
       display: grid;
-      grid-template-columns: 360px 1fr;
+      grid-template-columns: 390px 1fr;
       gap: 20px;
       padding: 20px;
-      max-width: 1440px;
+      max-width: 1480px;
       margin: 0 auto;
     }
 
@@ -133,6 +141,46 @@
       background: #ffffff;
     }
 
+    .param-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f8fafc;
+    }
+
+    .param-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .btn-remove {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 4px;
+    }
+
+    .param-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .param-card .field {
+      margin-bottom: 7px;
+    }
+
+    .param-card .field:last-child {
+      margin-bottom: 0;
+    }
+
     .preview-wrap {
       display: flex;
       justify-content: center;
@@ -182,7 +230,6 @@
       margin: 0;
     }
 
-    /* Equal 6px spacing: top rule -> Sodium row -> Batch row -> bottom rule */
     .chem-spec-row {
       display: grid;
       grid-template-columns: 134px 1fr;
@@ -199,7 +246,6 @@
       white-space: nowrap;
     }
 
-    /* Fixed-position columns so Batch length changes never shift B/L or LC */
     .lot-grid {
       display: grid;
       grid-template-columns: 134px 206px 166px 1fr;
@@ -216,7 +262,6 @@
       white-space: nowrap;
     }
 
-    /* Word-style Calibri 10pt Table with compact line spacing */
     table.analysis-table {
       width: 100%;
       border-collapse: collapse;
@@ -280,7 +325,6 @@
       width: 15%;
     }
 
-    /* Arial 9pt below table */
     .notes {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9pt;
@@ -305,7 +349,6 @@
       margin: 0;
     }
 
-    /* Signature block */
     .sign-block {
       margin-top: 26px;
       display: flex;
@@ -345,7 +388,6 @@
       color: #000000;
     }
 
-    /* Bottom area: QR right-aligned directly above address/footer, anchored near bottom */
     .bottom-area {
       margin-top: auto;
       padding-bottom: 0.2in;
@@ -368,7 +410,6 @@
       display: block;
     }
 
-    /* Footer: Arial 8pt, 3 parts */
     .doc-footer {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 8pt;
@@ -382,7 +423,6 @@
       min-height: 54px;
     }
 
-    /* Part 1: Top Left */
     .footer-col-1 {
       align-self: start;
       justify-self: start;
@@ -393,7 +433,6 @@
       margin: 0;
     }
 
-    /* Part 2: Center Left */
     .footer-col-2 {
       align-self: center;
       justify-self: start;
@@ -401,7 +440,6 @@
       line-height: 1.3;
     }
 
-    /* Part 3: Bottom Right */
     .footer-col-3 {
       align-self: end;
       justify-self: end;
@@ -525,10 +563,23 @@
     <aside class="sidebar">
       <h2>How to Fill the Form</h2>
       <div class="form-guide">
-        Enter lot details, batch test results, compliance status, and dates (DD.MM.YYYY), then click Print / Save PDF.
+        Select a chemical, enter lot info, edit or add table parameters and batch values, then click Print / Save PDF.
       </div>
 
-      <div class="section-title">Header &amp; Lot Info</div>
+      <div class="section-title">Chemical &amp; Lot Info</div>
+      <div class="field">
+        <label for="in_chem_preset">Chemical Preset</label>
+        <select id="in_chem_preset">
+          <option value="sodium_sulphate" selected>Sodium Sulphate Anhydrous</option>
+          <option value="soda_ash_light">Soda Ash Light</option>
+          <option value="acetic_acid">Acetic Acid</option>
+          <option value="formic_acid">Formic Acid</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="in_chem_line">Chemical Specification Line</label>
+        <input id="in_chem_line" type="text" value="" placeholder="Chemical formula, CAS, Grade" />
+      </div>
       <div class="field">
         <label for="in_ref">Report No</label>
         <input id="in_ref" type="text" value="" placeholder="Enter Report No" />
@@ -550,39 +601,9 @@
         <input id="in_lc" type="text" value="" placeholder="Enter LC" />
       </div>
 
-      <div class="section-title">Batch Values</div>
-      <div class="field">
-        <label for="in_form">Form — Batch Value</label>
-        <input id="in_form" type="text" value="" placeholder="Enter Form value" />
-      </div>
-      <div class="field">
-        <label for="in_app">Physical appearance — Batch Value</label>
-        <input id="in_app" type="text" value="" placeholder="Enter Physical appearance" />
-      </div>
-      <div class="field">
-        <label for="in_odor">Odor — Batch Value</label>
-        <input id="in_odor" type="text" value="" placeholder="Enter Odor" />
-      </div>
-      <div class="field">
-        <label for="in_ph">pH — Batch Value</label>
-        <input id="in_ph" type="text" value="" placeholder="Enter pH" />
-      </div>
-      <div class="field">
-        <label for="in_h8">Hardness 8%(w/v) — Batch Value</label>
-        <input id="in_h8" type="text" value="" placeholder="Enter Hardness 8%" />
-      </div>
-      <div class="field">
-        <label for="in_h10">Hardness 10%(w/v) — Batch Value</label>
-        <input id="in_h10" type="text" value="" placeholder="Enter Hardness 10%" />
-      </div>
-      <div class="field">
-        <label for="in_sol">Solubility — Batch Value</label>
-        <input id="in_sol" type="text" value="" placeholder="Enter Solubility" />
-      </div>
-      <div class="field">
-        <label for="in_moist">Moisture content — Batch Value</label>
-        <input id="in_moist" type="text" value="" placeholder="Enter Moisture content" />
-      </div>
+      <div class="section-title">Parameters &amp; Batch Values</div>
+      <div id="paramEditorList"></div>
+      <button type="button" class="btn-add" id="addParamBtn">+ Add Parameter</button>
 
       <div class="section-title">Compliance &amp; Dates</div>
       <div class="field">
@@ -622,9 +643,7 @@
 
         <div class="chem-spec-row">
           <div><span class="hl hl-wide" id="out_ref"></span></div>
-          <div class="chem-spec-text">
-            Sodium Sulphate Anhydrous (Na<sub>2</sub>SO<sub>4</sub>) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.
-          </div>
+          <div class="chem-spec-text" id="out_chem_line"></div>
         </div>
 
         <div class="lot-grid">
@@ -647,72 +666,7 @@
               <th class="col-method">Method</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>Form</td>
-              <td>solid (powder)</td>
-              <td></td>
-              <td><span class="hl hl-wide" id="out_form"></span></td>
-              <td></td>
-              <td>Visual</td>
-            </tr>
-            <tr>
-              <td>Physical appearance</td>
-              <td>white crystalline</td>
-              <td></td>
-              <td><span class="hl hl-wide" id="out_app"></span></td>
-              <td></td>
-              <td>Visual</td>
-            </tr>
-            <tr>
-              <td>Odor</td>
-              <td>odorless</td>
-              <td></td>
-              <td><span class="hl hl-wide" id="out_odor"></span></td>
-              <td></td>
-              <td>Sensory</td>
-            </tr>
-            <tr>
-              <td>pH (accuracy &plusmn;0.2) 5% sol<sup>n</sup> at 25&deg;C</td>
-              <td>6.0 - 8.0</td>
-              <td></td>
-              <td><span class="hl" id="out_ph"></span></td>
-              <td></td>
-              <td>ASTM E70-24</td>
-            </tr>
-            <tr>
-              <td>Hardness as CaCO<sub>3</sub> (accuracy &plusmn;5) 8%<sub>(w/v)</sub></td>
-              <td>&lt;20</td>
-              <td>mgL<sup>-1</sup></td>
-              <td><span class="hl" id="out_h8"></span></td>
-              <td>mgL<sup>-1</sup></td>
-              <td>Titration</td>
-            </tr>
-            <tr>
-              <td>Hardness as CaCO<sub>3</sub> (accuracy &plusmn;5) 10%<sub>(w/v)</sub></td>
-              <td>&lt;20</td>
-              <td>mgL<sup>-1</sup></td>
-              <td><span class="hl" id="out_h10"></span></td>
-              <td>mgL<sup>-1</sup></td>
-              <td>Titration</td>
-            </tr>
-            <tr>
-              <td>Solubility in 5% aqueous sol<sup>n</sup></td>
-              <td>soluble</td>
-              <td></td>
-              <td><span class="hl hl-wide" id="out_sol"></span></td>
-              <td></td>
-              <td>Visual</td>
-            </tr>
-            <tr>
-              <td>Moisture content</td>
-              <td>0.15 - 0.20</td>
-              <td>%</td>
-              <td><span class="hl" id="out_moist"></span></td>
-              <td>%</td>
-              <td>Moisture analyzer</td>
-            </tr>
-          </tbody>
+          <tbody id="out_table_body"></tbody>
         </table>
 
         <div class="notes">
@@ -770,25 +724,177 @@
   </main>
 
   <script>
+    const CHEMICAL_PRESETS = {
+      sodium_sulphate: {
+        specLine: "Sodium Sulphate Anhydrous (Na2SO4) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.",
+        rows: [
+          { param: "Form", spec: "solid (powder)", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Physical appearance", spec: "white crystalline", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Odor", spec: "odorless", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
+          { param: "pH (accuracy ±0.2) 5% soln at 25°C", spec: "6.0 - 8.0", specUnit: "", batch: "", batchUnit: "", method: "ASTM E70-24" },
+          { param: "Hardness as CaCO3 (accuracy ±5) 8%(w/v)", spec: "<20", specUnit: "mgL-1", batch: "", batchUnit: "mgL-1", method: "Titration" },
+          { param: "Hardness as CaCO3 (accuracy ±5) 10%(w/v)", spec: "<20", specUnit: "mgL-1", batch: "", batchUnit: "mgL-1", method: "Titration" },
+          { param: "Solubility in 5% aqueous soln", spec: "soluble", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Moisture content", spec: "0.15 - 0.20", specUnit: "%", batch: "", batchUnit: "%", method: "Moisture analyzer" }
+        ]
+      },
+      soda_ash_light: {
+        specLine: "Soda Ash Light (Na2CO3) CAS. 497-19-8, Ind. Grade, Co. Spec.",
+        rows: [
+          { param: "Form", spec: "solid (powder)", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Physical appearance", spec: "white granular powder", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Odor", spec: "odorless", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
+          { param: "Purity as Na2CO3", spec: "", specUnit: "%", batch: "", batchUnit: "%", method: "Titration" },
+          { param: "Moisture content", spec: "", specUnit: "%", batch: "", batchUnit: "%", method: "Moisture analyzer" }
+        ]
+      },
+      acetic_acid: {
+        specLine: "Acetic Acid (C2H4O2) CAS. 64-19-7, Ind. Grade, Co. Spec.",
+        rows: [
+          { param: "Form", spec: "liquid", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Physical appearance", spec: "clear colorless liquid", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Odor", spec: "pungent vinegar-like", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
+          { param: "Purity as CH3COOH", spec: "", specUnit: "%", batch: "", batchUnit: "%", method: "Titration" },
+          { param: "Specific gravity at 25°C", spec: "", specUnit: "", batch: "", batchUnit: "", method: "Hydrometer" }
+        ]
+      },
+      formic_acid: {
+        specLine: "Formic Acid (CH2O2) CAS. 64-18-6, Ind. Grade, Co. Spec.",
+        rows: [
+          { param: "Form", spec: "liquid", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Physical appearance", spec: "clear colorless liquid", specUnit: "", batch: "", batchUnit: "", method: "Visual" },
+          { param: "Odor", spec: "pungent", specUnit: "", batch: "", batchUnit: "", method: "Sensory" },
+          { param: "Purity as HCOOH", spec: "", specUnit: "%", batch: "", batchUnit: "%", method: "Titration" },
+          { param: "Specific gravity at 25°C", spec: "", specUnit: "", batch: "", batchUnit: "", method: "Hydrometer" }
+        ]
+      }
+    };
+
     const pairs = [
       ["in_ref", "out_ref"],
       ["in_lab_id", "out_lab_id"],
       ["in_batch", "out_batch"],
       ["in_bl", "out_bl"],
       ["in_lc", "out_lc"],
-      ["in_form", "out_form"],
-      ["in_app", "out_app"],
-      ["in_odor", "out_odor"],
-      ["in_ph", "out_ph"],
-      ["in_h8", "out_h8"],
-      ["in_h10", "out_h10"],
-      ["in_sol", "out_sol"],
-      ["in_moist", "out_moist"],
       ["in_comply", "out_comply"],
       ["in_d_receipt", "out_d_receipt"],
       ["in_d_analysis", "out_d_analysis"],
       ["in_d_release", "out_d_release"]
     ];
+
+    let currentRows = [];
+
+    function formatChemLineHtml(text) {
+      const escaped = String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+      return escaped.replace(/(Na2SO4|Na2CO3|C2H4O2|CH2O2)/g, (m) =>
+        m.replace(/(\d+)/g, "<sub>$1</sub>")
+      );
+    }
+
+    function formatInlineChemHtml(text) {
+      return String(text || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/CaCO3/g, "CaCO<sub>3</sub>")
+        .replace(/mgL-1/g, "mgL<sup>-1</sup>")
+        .replace(/soln/g, "sol<sup>n</sup>")
+        .replace(/\(w\/v\)/g, "<sub>(w/v)</sub>");
+    }
+
+    function renderPreviewTable() {
+      const tbody = document.getElementById("out_table_body");
+      tbody.innerHTML = "";
+
+      currentRows.forEach((row) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${formatInlineChemHtml(row.param)}</td>
+          <td>${formatInlineChemHtml(row.spec)}</td>
+          <td>${formatInlineChemHtml(row.specUnit)}</td>
+          <td><span class="hl hl-wide">${formatInlineChemHtml(row.batch)}</span></td>
+          <td>${formatInlineChemHtml(row.batchUnit)}</td>
+          <td>${formatInlineChemHtml(row.method)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderParamEditor() {
+      const container = document.getElementById("paramEditorList");
+      container.innerHTML = "";
+
+      currentRows.forEach((row, idx) => {
+        const card = document.createElement("div");
+        card.className = "param-card";
+        card.innerHTML = `
+          <div class="param-card-head">
+            <span>Parameter ${idx + 1}</span>
+            <button type="button" class="btn-remove" data-idx="${idx}">Remove</button>
+          </div>
+          <div class="field">
+            <label>Parameter Name</label>
+            <input type="text" data-idx="${idx}" data-field="param" value="${row.param.replace(/"/g, "&quot;")}" />
+          </div>
+          <div class="param-grid-2">
+            <div class="field">
+              <label>Spec. Value</label>
+              <input type="text" data-idx="${idx}" data-field="spec" value="${row.spec.replace(/"/g, "&quot;")}" />
+            </div>
+            <div class="field">
+              <label>Spec. Unit</label>
+              <input type="text" data-idx="${idx}" data-field="specUnit" value="${row.specUnit.replace(/"/g, "&quot;")}" />
+            </div>
+          </div>
+          <div class="param-grid-2">
+            <div class="field">
+              <label>Batch Value</label>
+              <input type="text" data-idx="${idx}" data-field="batch" value="${row.batch.replace(/"/g, "&quot;")}" />
+            </div>
+            <div class="field">
+              <label>Batch Unit</label>
+              <input type="text" data-idx="${idx}" data-field="batchUnit" value="${row.batchUnit.replace(/"/g, "&quot;")}" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Method</label>
+            <input type="text" data-idx="${idx}" data-field="method" value="${row.method.replace(/"/g, "&quot;")}" />
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      container.querySelectorAll("input").forEach((inp) => {
+        inp.addEventListener("input", (e) => {
+          const i = Number(e.target.dataset.idx);
+          const f = e.target.dataset.field;
+          currentRows[i][f] = e.target.value;
+          renderPreviewTable();
+        });
+      });
+
+      container.querySelectorAll(".btn-remove").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const i = Number(e.target.dataset.idx);
+          currentRows.splice(i, 1);
+          renderParamEditor();
+          renderPreviewTable();
+        });
+      });
+    }
+
+    function applyPreset(presetKey) {
+      const preset = CHEMICAL_PRESETS[presetKey] || CHEMICAL_PRESETS.sodium_sulphate;
+      const chemLineInput = document.getElementById("in_chem_line");
+      chemLineInput.value = preset.specLine;
+      document.getElementById("out_chem_line").innerHTML = formatChemLineHtml(preset.specLine);
+      currentRows = preset.rows.map((r) => ({ ...r }));
+      renderParamEditor();
+      renderPreviewTable();
+    }
 
     pairs.forEach(([inId, outId]) => {
       const inp = document.getElementById(inId);
@@ -801,17 +907,43 @@
       inp.addEventListener("change", sync);
     });
 
+    const chemLineInput = document.getElementById("in_chem_line");
+    chemLineInput.addEventListener("input", () => {
+      document.getElementById("out_chem_line").innerHTML = formatChemLineHtml(chemLineInput.value);
+    });
+
+    document.getElementById("in_chem_preset").addEventListener("change", (e) => {
+      applyPreset(e.target.value);
+    });
+
+    document.getElementById("addParamBtn").addEventListener("click", () => {
+      currentRows.push({
+        param: "",
+        spec: "",
+        specUnit: "",
+        batch: "",
+        batchUnit: "",
+        method: ""
+      });
+      renderParamEditor();
+      renderPreviewTable();
+    });
+
     document.getElementById("resetBtn").addEventListener("click", () => {
       pairs.forEach(([inId, outId]) => {
         const inp = document.getElementById(inId);
         inp.value = "";
         document.getElementById(outId).textContent = "";
       });
+      const presetKey = document.getElementById("in_chem_preset").value;
+      applyPreset(presetKey);
     });
 
     document.getElementById("printBtn").addEventListener("click", () => {
       window.print();
     });
+
+    applyPreset("sodium_sulphate");
   </script>
 </body>
 </html>
