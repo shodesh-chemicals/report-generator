@@ -201,7 +201,7 @@
     .top-logo-row {
       display: flex;
       justify-content: flex-end;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .brand-logo {
@@ -216,7 +216,7 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 14pt;
       font-weight: 400;
-      line-height: 1.12;
+      line-height: 1.15;
       color: #000000;
     }
 
@@ -230,7 +230,6 @@
       margin: 0;
     }
 
-    /* Compact spacing between Laboratory Test Analysis, chemical line, batch line, and table */
     .chem-spec-row {
       display: grid;
       grid-template-columns: 134px 1fr;
@@ -266,7 +265,7 @@
     table.analysis-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 14px 0 12px;
+      margin: 12px 0 12px;
       font-family: Calibri, "Segoe UI", Arial, sans-serif;
       font-size: 10pt;
       font-weight: 400;
@@ -277,10 +276,10 @@
     table.analysis-table th,
     table.analysis-table td {
       border: none;
-      padding: 1px 4px;
+      padding: 1pt 4px;
       text-align: left;
       vertical-align: baseline;
-      line-height: 1.12;
+      line-height: 1.05;
     }
 
     table.analysis-table thead tr {
@@ -290,16 +289,17 @@
     table.analysis-table th {
       background: transparent;
       font-weight: 700;
-      padding-bottom: 3px;
-      line-height: 1.15;
+      padding-top: 1pt;
+      padding-bottom: 2pt;
+      line-height: 1.1;
     }
 
     table.analysis-table tbody tr:first-child td {
-      padding-top: 4px;
+      padding-top: 1pt;
     }
 
     table.analysis-table tbody tr:last-child td {
-      padding-bottom: 4px;
+      padding-bottom: 1pt;
     }
 
     .col-param {
@@ -780,6 +780,14 @@
 
     let currentRows = [];
 
+    function normalizeMethodForDisplay(method) {
+      const raw = String(method || "");
+      return raw
+        .split(/(astm e70-24)/i)
+        .map((part) => (part.toLowerCase() === "astm e70-24" ? "ASTM E70-24" : part.toLowerCase()))
+        .join("");
+    }
+
     function formatChemLineHtml(text) {
       const escaped = String(text || "")
         .replace(/&/g, "&amp;")
@@ -802,19 +810,12 @@
         .replace(/\(w\/v\)/g, "<sub>(w/v)</sub>");
     }
 
-    function formatMethodHtml(text) {
-      const raw = String(text || "");
-      const token = "__ASTM_E70_24__";
-      const replaced = raw.replace(/ASTM E70-24/gi, token).toLowerCase();
-      const restored = replaced.replace(new RegExp(token.toLowerCase(), "g"), "ASTM E70-24");
-      return formatInlineChemHtml(restored);
-    }
-
     function renderPreviewTable() {
       const tbody = document.getElementById("out_table_body");
       tbody.innerHTML = "";
 
       currentRows.forEach((row) => {
+        const formattedMethod = normalizeMethodForDisplay(row.method);
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${formatInlineChemHtml(row.param)}</td>
@@ -822,7 +823,7 @@
           <td>${formatInlineChemHtml(row.specUnit)}</td>
           <td><span class="hl hl-wide">${formatInlineChemHtml(row.batch)}</span></td>
           <td>${formatInlineChemHtml(row.batchUnit)}</td>
-          <td>${formatMethodHtml(row.method)}</td>
+          <td>${formatInlineChemHtml(formattedMethod)}</td>
         `;
         tbody.appendChild(tr);
       });
