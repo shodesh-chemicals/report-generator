@@ -175,10 +175,14 @@
     .section-rule {
       border: none;
       border-top: 1px solid #333333;
-      margin: 1px 0 8px;
+      margin: 1px 0 0;
     }
 
-    /* Aligned so 'Sodium' starts right after Report No, and 'Batch.' starts directly under 'Sodium' */
+    .section-rule-bottom {
+      margin: 0;
+    }
+
+    /* Equal 6px spacing: top rule -> Sodium row -> Batch row -> bottom rule */
     .chem-spec-row {
       display: grid;
       grid-template-columns: 134px 1fr;
@@ -186,9 +190,9 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10pt;
       font-weight: 400;
-      line-height: 1.4;
+      line-height: 1.25;
       color: #000000;
-      margin-bottom: 4px;
+      margin: 6px 0 0;
     }
 
     .chem-spec-text {
@@ -203,8 +207,9 @@
       font-family: Arial, Helvetica, sans-serif;
       font-size: 10pt;
       font-weight: 400;
-      line-height: 1.4;
+      line-height: 1.25;
       color: #000000;
+      margin: 6px 0 6px;
     }
 
     .lot-cell {
@@ -629,7 +634,7 @@
           <div class="lot-cell">LC. <span class="hl hl-wide" id="out_lc"></span></div>
         </div>
 
-        <hr class="section-rule" />
+        <hr class="section-rule section-rule-bottom" />
 
         <table class="analysis-table">
           <thead>
