@@ -11,7 +11,6 @@
       --bg-app: #eef2f6;
       --text: #0f172a;
       --muted: #64748b;
-      --highlight: #ffff00;
     }
 
     * {
@@ -47,14 +46,6 @@
       align-items: center;
       gap: 10px;
       flex-wrap: wrap;
-    }
-
-    .toggle-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      cursor: pointer;
     }
 
     button {
@@ -95,10 +86,21 @@
     }
 
     .sidebar h2 {
-      margin: 0 0 12px;
+      margin: 0 0 6px;
       font-size: 16px;
+      color: var(--navy);
+    }
+
+    .form-guide {
+      margin: 0 0 12px;
+      font-size: 12px;
+      line-height: 1.55;
+      color: #334155;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 11px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 8px;
     }
 
     .section-title {
@@ -129,6 +131,7 @@
       border-radius: 4px;
       font-size: 13px;
       font-family: Arial, Helvetica, sans-serif;
+      background: #ffffff;
     }
 
     .preview-wrap {
@@ -407,17 +410,12 @@
       display: inline-block;
       min-width: 56px;
       min-height: 1.15em;
-      background: var(--highlight);
-      padding: 0 3px;
+      background: transparent;
+      padding: 0 2px;
     }
 
     .hl-wide {
       min-width: 96px;
-    }
-
-    body.no-highlight .hl {
-      background: transparent;
-      padding: 0;
     }
 
     @media (max-width: 960px) {
@@ -514,10 +512,6 @@
   <header class="topbar">
     <h1>SHODESH CHEMICAL INDUSTRIES - Laboratory Test Analysis</h1>
     <div class="actions">
-      <label class="toggle-label">
-        <input type="checkbox" id="highlightToggle" checked />
-        Highlight Yellow Fields
-      </label>
       <button type="button" class="btn-reset" id="resetBtn">Clear All</button>
       <button type="button" class="btn-print" id="printBtn">Print / Save PDF</button>
     </div>
@@ -525,7 +519,12 @@
 
   <main class="workspace">
     <aside class="sidebar">
-      <h2>Yellow Fields Form</h2>
+      <h2>Form টি Fill করার নির্দেশনা</h2>
+      <div class="form-guide">
+        ১. প্রথমে <strong>Header &amp; Lot Info</strong>-তে Report No, Lab ID, Batch, B/L ও LC লিখুন।<br />
+        ২. এরপর <strong>Batch Values</strong>-এ ল্যাব পরীক্ষার ফলাফল (Form, Appearance, Odor, pH, Hardness, Solubility ও Moisture) বসান।<br />
+        ৩. শেষে <strong>Compliance Status</strong> নির্বাচন করুন এবং তারিখগুলো <strong>DD.MM.YYYY</strong> ফরম্যাটে লিখে <strong>Print / Save PDF</strong> চাপুন।
+      </div>
 
       <div class="section-title">Header &amp; Lot Info</div>
       <div class="field">
@@ -798,10 +797,6 @@
       };
       inp.addEventListener("input", sync);
       inp.addEventListener("change", sync);
-    });
-
-    document.getElementById("highlightToggle").addEventListener("change", (e) => {
-      document.body.classList.toggle("no-highlight", !e.target.checked);
     });
 
     document.getElementById("resetBtn").addEventListener("click", () => {
