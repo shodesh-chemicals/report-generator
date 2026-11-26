@@ -366,8 +366,15 @@
     }
 
     .hl {
+      display: inline-block;
+      min-width: 56px;
+      min-height: 1.15em;
       background: var(--highlight);
-      padding: 0 2px;
+      padding: 0 3px;
+    }
+
+    .hl-wide {
+      min-width: 96px;
     }
 
     body.no-highlight .hl {
@@ -450,7 +457,7 @@
         <input type="checkbox" id="highlightToggle" checked />
         Highlight Yellow Fields
       </label>
-      <button type="button" class="btn-reset" id="resetBtn">Reset Defaults</button>
+      <button type="button" class="btn-reset" id="resetBtn">Clear All</button>
       <button type="button" class="btn-print" id="printBtn">Print / Save PDF</button>
     </div>
   </header>
@@ -462,78 +469,79 @@
       <div class="section-title">Header &amp; Lot Info</div>
       <div class="field">
         <label for="in_ref">Report No</label>
-        <input id="in_ref" type="text" value="SSA-11-26-020" />
+        <input id="in_ref" type="text" value="" placeholder="Enter Report No" />
       </div>
       <div class="field">
         <label for="in_lab_id">Lab ID</label>
-        <input id="in_lab_id" type="text" value="1020" />
+        <input id="in_lab_id" type="text" value="" placeholder="Enter Lab ID" />
       </div>
       <div class="field">
         <label for="in_batch">Batch</label>
-        <input id="in_batch" type="text" value="1000Kg/NewJB+Stone" />
+        <input id="in_batch" type="text" value="" placeholder="Enter Batch" />
       </div>
       <div class="field">
         <label for="in_bl">B/L</label>
-        <input id="in_bl" type="text" value="000000000000" />
+        <input id="in_bl" type="text" value="" placeholder="Enter B/L" />
       </div>
       <div class="field">
         <label for="in_lc">LC</label>
-        <input id="in_lc" type="text" value="0000000000000000" />
+        <input id="in_lc" type="text" value="" placeholder="Enter LC" />
       </div>
 
       <div class="section-title">Batch Values</div>
       <div class="field">
         <label for="in_form">Form — Batch Value</label>
-        <input id="in_form" type="text" value="solid (powder)" />
+        <input id="in_form" type="text" value="" placeholder="Enter Form value" />
       </div>
       <div class="field">
         <label for="in_app">Physical appearance — Batch Value</label>
-        <input id="in_app" type="text" value="white crystalline" />
+        <input id="in_app" type="text" value="" placeholder="Enter Physical appearance" />
       </div>
       <div class="field">
         <label for="in_odor">Odor — Batch Value</label>
-        <input id="in_odor" type="text" value="odorless" />
+        <input id="in_odor" type="text" value="" placeholder="Enter Odor" />
       </div>
       <div class="field">
         <label for="in_ph">pH — Batch Value</label>
-        <input id="in_ph" type="text" value="10.7" />
+        <input id="in_ph" type="text" value="" placeholder="Enter pH" />
       </div>
       <div class="field">
         <label for="in_h8">Hardness 8%(w/v) — Batch Value</label>
-        <input id="in_h8" type="text" value="7.5" />
+        <input id="in_h8" type="text" value="" placeholder="Enter Hardness 8%" />
       </div>
       <div class="field">
         <label for="in_h10">Hardness 10%(w/v) — Batch Value</label>
-        <input id="in_h10" type="text" value="9" />
+        <input id="in_h10" type="text" value="" placeholder="Enter Hardness 10%" />
       </div>
       <div class="field">
         <label for="in_sol">Solubility — Batch Value</label>
-        <input id="in_sol" type="text" value="soluble" />
+        <input id="in_sol" type="text" value="" placeholder="Enter Solubility" />
       </div>
       <div class="field">
         <label for="in_moist">Moisture content — Batch Value</label>
-        <input id="in_moist" type="text" value="0.67" />
+        <input id="in_moist" type="text" value="" placeholder="Enter Moisture content" />
       </div>
 
       <div class="section-title">Compliance &amp; Dates</div>
       <div class="field">
         <label for="in_comply">Compliance Status</label>
         <select id="in_comply">
-          <option value="DOES NOT COMPLY" selected>DOES NOT COMPLY</option>
+          <option value="" selected>-- Select Status --</option>
           <option value="COMPLIES">COMPLIES</option>
+          <option value="DOES NOT COMPLY">DOES NOT COMPLY</option>
         </select>
       </div>
       <div class="field">
         <label for="in_d_receipt">Date of sample receipt (DD.MM.YYYY)</label>
-        <input id="in_d_receipt" type="text" value="22.11.2026" />
+        <input id="in_d_receipt" type="text" value="" placeholder="DD.MM.YYYY" />
       </div>
       <div class="field">
         <label for="in_d_analysis">Date of analysis (DD.MM.YYYY)</label>
-        <input id="in_d_analysis" type="text" value="22.11.2026" />
+        <input id="in_d_analysis" type="text" value="" placeholder="DD.MM.YYYY" />
       </div>
       <div class="field">
         <label for="in_d_release">Date of report release (DD.MM.YYYY)</label>
-        <input id="in_d_release" type="text" value="22.11.2026" />
+        <input id="in_d_release" type="text" value="" placeholder="DD.MM.YYYY" />
       </div>
     </aside>
 
@@ -551,17 +559,17 @@
         <hr class="section-rule" />
 
         <div class="chem-spec-row">
-          <div><span class="hl" id="out_ref">SSA-11-26-020</span></div>
+          <div><span class="hl hl-wide" id="out_ref"></span></div>
           <div class="chem-spec-text">
             Sodium Sulphate Anhydrous (Na<sub>2</sub>SO<sub>4</sub>) 99% CAS. 7757-82-6, Ind. Grade, Co. Spec.
           </div>
         </div>
 
         <div class="lot-grid">
-          <div class="lot-cell">Lab ID. <span class="hl" id="out_lab_id">1020</span></div>
-          <div class="lot-cell">Batch. <span class="hl" id="out_batch">1000Kg/NewJB+Stone</span>,</div>
-          <div class="lot-cell">B/L. <span class="hl" id="out_bl">000000000000</span>,</div>
-          <div class="lot-cell">LC. <span class="hl" id="out_lc">0000000000000000</span></div>
+          <div class="lot-cell">Lab ID. <span class="hl" id="out_lab_id"></span></div>
+          <div class="lot-cell">Batch. <span class="hl hl-wide" id="out_batch"></span>,</div>
+          <div class="lot-cell">B/L. <span class="hl hl-wide" id="out_bl"></span>,</div>
+          <div class="lot-cell">LC. <span class="hl hl-wide" id="out_lc"></span></div>
         </div>
 
         <hr class="section-rule" />
@@ -582,7 +590,7 @@
               <td>Form</td>
               <td>solid (powder)</td>
               <td></td>
-              <td><span class="hl" id="out_form">solid (powder)</span></td>
+              <td><span class="hl hl-wide" id="out_form"></span></td>
               <td></td>
               <td>Visual</td>
             </tr>
@@ -590,7 +598,7 @@
               <td>Physical appearance</td>
               <td>white crystalline</td>
               <td></td>
-              <td><span class="hl" id="out_app">white crystalline</span></td>
+              <td><span class="hl hl-wide" id="out_app"></span></td>
               <td></td>
               <td>Visual</td>
             </tr>
@@ -598,7 +606,7 @@
               <td>Odor</td>
               <td>odorless</td>
               <td></td>
-              <td><span class="hl" id="out_odor">odorless</span></td>
+              <td><span class="hl hl-wide" id="out_odor"></span></td>
               <td></td>
               <td>Sensory</td>
             </tr>
@@ -606,7 +614,7 @@
               <td>pH (accuracy &plusmn;0.2) 5% sol<sup>n</sup> at 25&deg;C</td>
               <td>6.0 - 8.0</td>
               <td></td>
-              <td><span class="hl" id="out_ph">10.7</span></td>
+              <td><span class="hl" id="out_ph"></span></td>
               <td></td>
               <td>ASTM E70-24</td>
             </tr>
@@ -614,7 +622,7 @@
               <td>Hardness as CaCO<sub>3</sub> (accuracy &plusmn;5) 8%<sub>(w/v)</sub></td>
               <td>&lt;20</td>
               <td>mgL<sup>-1</sup></td>
-              <td><span class="hl" id="out_h8">7.5</span></td>
+              <td><span class="hl" id="out_h8"></span></td>
               <td>mgL<sup>-1</sup></td>
               <td>Titration</td>
             </tr>
@@ -622,7 +630,7 @@
               <td>Hardness as CaCO<sub>3</sub> (accuracy &plusmn;5) 10%<sub>(w/v)</sub></td>
               <td>&lt;20</td>
               <td>mgL<sup>-1</sup></td>
-              <td><span class="hl" id="out_h10">9</span></td>
+              <td><span class="hl" id="out_h10"></span></td>
               <td>mgL<sup>-1</sup></td>
               <td>Titration</td>
             </tr>
@@ -630,7 +638,7 @@
               <td>Solubility in 5% aqueous sol<sup>n</sup></td>
               <td>soluble</td>
               <td></td>
-              <td><span class="hl" id="out_sol">soluble</span></td>
+              <td><span class="hl hl-wide" id="out_sol"></span></td>
               <td></td>
               <td>Visual</td>
             </tr>
@@ -638,7 +646,7 @@
               <td>Moisture content</td>
               <td>0.15 - 0.20</td>
               <td>%</td>
-              <td><span class="hl" id="out_moist">0.67</span></td>
+              <td><span class="hl" id="out_moist"></span></td>
               <td>%</td>
               <td>Moisture analyzer</td>
             </tr>
@@ -651,14 +659,14 @@
           </p>
           <p>
             Note: The reported values apply exclusively to the specific sample tested in the laboratory. Based on the observed analytical results above, the tested sample
-            <strong><span class="hl" id="out_comply">DOES NOT COMPLY</span></strong> with the required specification limits.
+            <strong><span class="hl hl-wide" id="out_comply"></span></strong> with the required specification limits.
           </p>
         </div>
 
         <div class="dates-block">
-          <div>Date of sample receipt (DD.MM.YYYY) <span class="hl" id="out_d_receipt">22.11.2026</span></div>
-          <div>Date of analysis (DD.MM.YYYY) <span class="hl" id="out_d_analysis">22.11.2026</span></div>
-          <div>Date of report release (DD.MM.YYYY) <span class="hl" id="out_d_release">22.11.2026</span></div>
+          <div>Date of sample receipt (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_receipt"></span></div>
+          <div>Date of analysis (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_analysis"></span></div>
+          <div>Date of report release (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_release"></span></div>
         </div>
 
         <div class="sign-block">
@@ -717,11 +725,10 @@
       ["in_d_release", "out_d_release"]
     ];
 
-    const defaults = {};
     pairs.forEach(([inId, outId]) => {
       const inp = document.getElementById(inId);
       const out = document.getElementById(outId);
-      defaults[inId] = inp.value;
+      out.textContent = inp.value;
       const sync = () => {
         out.textContent = inp.value;
       };
@@ -736,8 +743,8 @@
     document.getElementById("resetBtn").addEventListener("click", () => {
       pairs.forEach(([inId, outId]) => {
         const inp = document.getElementById(inId);
-        inp.value = defaults[inId];
-        document.getElementById(outId).textContent = defaults[inId];
+        inp.value = "";
+        document.getElementById(outId).textContent = "";
       });
     });
 
