@@ -248,7 +248,8 @@
     .top-logo-row {
       display: flex;
       justify-content: flex-end;
-      margin-bottom: 6px;
+      margin-top: 8px;
+      margin-bottom: 10px;
     }
 
     .brand-logo {
@@ -309,10 +310,14 @@
       white-space: nowrap;
     }
 
+    .report-body-shifted {
+      margin-top: 10px;
+    }
+
     table.analysis-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 28px 0 12px;
+      margin: 44px 0 12px;
       font-family: Calibri, "Segoe UI", Arial, sans-serif;
       font-size: 9pt;
       font-weight: 400;
@@ -383,20 +388,20 @@
     .notes {
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9pt;
-      line-height: 1.38;
+      line-height: 1.36;
       color: #000000;
     }
 
     .notes p {
-      margin: 9px 0;
+      margin: 8px 0;
       text-align: left;
     }
 
     .dates-block {
-      margin: 20px 0 16px;
+      margin: 18px 0 14px;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9pt;
-      line-height: 1.42;
+      line-height: 1.4;
       color: #000000;
     }
 
@@ -405,7 +410,7 @@
     }
 
     .sign-block {
-      margin-top: 26px;
+      margin-top: 22px;
       display: flex;
       justify-content: flex-end;
     }
@@ -435,7 +440,7 @@
     }
 
     .electronic-note {
-      margin-top: 20px;
+      margin-top: 18px;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 9pt;
       font-weight: 400;
@@ -592,6 +597,16 @@
         display: flex !important;
         flex-direction: column !important;
       }
+      .top-logo-row {
+        margin-top: 8px !important;
+        margin-bottom: 10px !important;
+      }
+      .report-body-shifted {
+        margin-top: 10px !important;
+      }
+      table.analysis-table {
+        margin: 44px 0 12px !important;
+      }
       table.analysis-table th,
       table.analysis-table td {
         white-space: nowrap !important;
@@ -746,45 +761,47 @@
 
           <hr class="section-rule section-rule-bottom" />
 
-          <table class="analysis-table">
-            <thead>
-              <tr>
-                <th class="col-param"></th>
-                <th class="col-spec">Spec. Values</th>
-                <th class="col-spec-unit"></th>
-                <th class="col-batch">Batch Values</th>
-                <th class="col-batch-unit"></th>
-                <th class="col-method">Method</th>
-              </tr>
-            </thead>
-            <tbody id="out_table_body"></tbody>
-          </table>
+          <div class="report-body-shifted">
+            <table class="analysis-table">
+              <thead>
+                <tr>
+                  <th class="col-param"></th>
+                  <th class="col-spec">Spec. Values</th>
+                  <th class="col-spec-unit"></th>
+                  <th class="col-batch">Batch Values</th>
+                  <th class="col-batch-unit"></th>
+                  <th class="col-method">Method</th>
+                </tr>
+              </thead>
+              <tbody id="out_table_body"></tbody>
+            </table>
 
-          <div class="notes">
-            <p>
-              Freshly prepared distilled water was used wherever aqueous solutions or dilutions were prepared. Applicable parameters were analyzed following recognized standard analytical methods as well as validated internal laboratory test procedures at ambient laboratory temperature (approx. 25 &deg;C). All reagents and volumetric solutions used during analysis are properly standardized prior to use, and all analytical apparatus, balances, and measuring instruments are periodically calibrated and verified at scheduled intervals per internal laboratory protocols.
-            </p>
-            <p>
-              Note: The reported values apply exclusively to the specific sample tested in the laboratory. Based on the observed analytical results above, the tested sample
-              <strong><span id="out_comply"></span></strong> with the required specification limits.
-            </p>
-          </div>
-
-          <div class="dates-block">
-            <div>Date of sample receipt (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_receipt"></span></div>
-            <div>Date of analysis (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_analysis"></span></div>
-            <div>Date of report release (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_release"></span></div>
-          </div>
-
-          <div class="sign-block">
-            <div class="sign-inner">
-              <div class="sign-name">Md. Ibrahim Hossain</div>
-              <div class="sign-role">Responsible laboratory chemist</div>
+            <div class="notes">
+              <p>
+                Freshly prepared distilled water was used wherever aqueous solutions or dilutions were prepared. Applicable parameters were analyzed following recognized standard analytical methods as well as validated internal laboratory test procedures at ambient laboratory temperature (approx. 25 &deg;C). All reagents and volumetric solutions used during analysis are properly standardized prior to use, and all analytical apparatus, balances, and measuring instruments are periodically calibrated and verified at scheduled intervals per internal laboratory protocols.
+              </p>
+              <p>
+                Note: The reported values apply exclusively to the specific sample tested in the laboratory. Based on the observed analytical results above, the tested sample
+                <strong><span id="out_comply"></span></strong> with the required specification limits.
+              </p>
             </div>
-          </div>
 
-          <div class="electronic-note">
-            This document has been produced electronically and is valid without a signature.
+            <div class="dates-block">
+              <div>Date of sample receipt (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_receipt"></span></div>
+              <div>Date of analysis (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_analysis"></span></div>
+              <div>Date of report release (DD.MM.YYYY) <span class="hl hl-wide" id="out_d_release"></span></div>
+            </div>
+
+            <div class="sign-block">
+              <div class="sign-inner">
+                <div class="sign-name">Md. Ibrahim Hossain</div>
+                <div class="sign-role">Responsible laboratory chemist</div>
+              </div>
+            </div>
+
+            <div class="electronic-note">
+              This document has been produced electronically and is valid without a signature.
+            </div>
           </div>
 
           <div class="bottom-area">
