@@ -874,6 +874,34 @@
     const AUTH_ID = "report-generator";
     const AUTH_PASS = ["S", "C", "I", "5", "4", "1"].join("");
     const AUTH_KEY = "shodesh_report_generator_auth_v1";
+    const DEFAULT_DOC_TITLE = document.title;
+
+    function sanitizeFileToken(val) {
+      return String(val || "")
+        .trim()
+        .replace(/[\\/:*?"<>|]+/g, "-")
+        .replace(/\s+/g, "_");
+    }
+
+    function buildPdfFileName() {
+      const refPart = sanitizeFileToken(document.getElementById("in_ref").value);
+      const labPart = sanitizeFileToken(document.getElementById("in_lab_id").value);
+      if (refPart && labPart) return `${refPart}_${labPart}`;
+      if (refPart) return refPart;
+      if (labPart) return labPart;
+      return "Laboratory_Test_Analysis";
+    }
+
+    function applyPdfTitleForPrint() {
+      document.title = buildPdfFileName();
+    }
+
+    function restoreDefaultTitle() {
+      document.title = DEFAULT_DOC_TITLE;
+    }
+
+    window.addEventListener("beforeprint", applyPdfTitleForPrint);
+    window.addEventListener("afterprint", restoreDefaultTitle);
 
     function isAuthenticated() {
       return sessionStorage.getItem(AUTH_KEY) === "granted";
@@ -1123,7 +1151,9 @@
     });
 
     document.getElementById("printBtn").addEventListener("click", () => {
+      applyPdfTitleForPrint();
       window.print();
+      setTimeout(restoreDefaultTitle, 1000);
     });
 
     updateAuthUI();
